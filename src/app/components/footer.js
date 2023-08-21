@@ -1,7 +1,7 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
-    // <section className="bg-red-300 w-full h-64 text-gray-900 mb-20">
-    // </section>
     <section className="w-full h-64 flex items-center bg-[#EAE0CC] text-gray-900">
       <section className="w-full flex flex-col items-center">
         <ul className="w-full md:w-1/2 lg:w-1/4 h-16 flex justify-evenly items-center mb-8">
@@ -71,26 +71,21 @@ export default function Footer() {
 
         <ul className="w-full lg:w-1/2 flex justify-evenly">
           <li>
-            <a href="https://www.postable.com">Home</a>
+            <Link href="/">Home</Link>
           </li>
           <li>
-            <a href="https://www.postable.com/about">About</a>
+            <Link href="/">About</Link>
           </li>
           <li>
-            <a href="https://www.postable.com/faq">FAQ</a>
+            <Link href="/faq">FAQ</Link>
           </li>
           <li>
-            <a href="https://www.postable.com/terms">Terms & Conditions</a>
+            <Link href="/">Terms & Conditions</Link>
           </li>
           <li>
-            <a href="https://www.postable.com/privacy">Privacy Policy</a>
+            <Link href="/">Privacy Policy</Link>
           </li>
         </ul>
-        {/* <p>
-          <a href="javascript:void(0);" class="button contact-us-cta">
-            Contact us
-          </a>
-        </p> */}
       </section>
     </section>
   );
