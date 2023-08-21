@@ -42,6 +42,27 @@ export default function FAQ() {
                     clip-rule="evenodd"
                   ></path>
                 </svg>
+                How is the crypto claimed?
+              </h3>
+              <p className="text-gray-900">
+                We create a unique link for you to send, from there your friend
+                clicks a button to claim the crypto. Easy peasy.
+              </p>
+            </section>
+            <section className="mb-10">
+              <h3 className="flex items-center mb-4 text-lg font-medium text-gray-900">
+                <svg
+                  className="flex-shrink-0 mr-2 w-5 h-5 text-gray-900"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
                 What is the purpose of stilto?
               </h3>
               <p className="text-gray-900">
@@ -51,6 +72,8 @@ export default function FAQ() {
                 any of the other many holidays.
               </p>
             </section>
+          </section>
+          <section>
             <section className="mb-10">
               <h3 className="flex items-center mb-4 text-lg font-medium text-gray-900">
                 <svg
@@ -68,13 +91,11 @@ export default function FAQ() {
                 Where do you ship the cards from?
               </h3>
               <p className="text-gray-900">
-                Nowhere. Our card are digital which makes it so easy and quick
+                Nowhere. Our cards are digital which makes it so easy and quick
                 to send and receive them. The receipient can easily claim the
-                cryptos you sent.
+                cryptos you&apos;ve sent.
               </p>
             </section>
-          </section>
-          <section>
             <section className="mb-10">
               <h3 className="flex items-center mb-4 text-lg font-medium text-gray-900">
                 <svg
