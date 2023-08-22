@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { Ubuntu } from "next/font/google";
 
@@ -38,9 +39,11 @@ export default function HomeComp() {
           </p>
         </section>
       </section>
-      <button className="w-64 h-16 bg-[#877b9a] hover:bg-[#8f82a5] text-white text-xl my-20 rounded-xl">
-        Start Creating
-      </button>
+      <Link href="/new-card">
+        <button className="w-64 h-16 bg-[#877b9a] hover:bg-[#8f82a5] text-white text-xl my-20 rounded-xl">
+          Start Creating
+        </button>
+      </Link>
       <section className="w-full flex flex-col items-center bg-[#EAE0CC] pt-8 pb-20">
         <h1 className={`${ubuntu.className} text-3xl font-semibold`}>
           ADD GIFS
@@ -84,9 +87,11 @@ export default function HomeComp() {
           </section>
         </section>
       </section>
-      <button className="w-64 h-16 bg-[#877b9a] hover:bg-[#8f82a5] text-white text-xl my-20 rounded-xl">
-        Start Creating
-      </button>
+      <Link href="/new-card">
+        <button className="w-64 h-16 bg-[#877b9a] hover:bg-[#8f82a5] text-white text-xl my-20 rounded-xl">
+          Start Creating
+        </button>
+      </Link>
     </section>
   );
 }
