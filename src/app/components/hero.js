@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { Ubuntu } from "next/font/google";
 
@@ -37,9 +38,11 @@ export default function Hero() {
             Create a greeting card, add your personal message, and send the
             desired crypto amount to a friend that claims via a link.
           </p>
-          <button className="w-44 h-12 bg-[#877b9a] hover:bg-[#8f82a5] text-lg mt-6 rounded-xl">
-            Start Creating
-          </button>
+          <Link href="/new-card">
+            <button className="w-44 h-12 bg-[#877b9a] hover:bg-[#8f82a5] text-lg mt-6 rounded-xl">
+              Start Creating
+            </button>
+          </Link>
         </section>
       </section>
     </section>
