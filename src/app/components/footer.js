@@ -15,7 +15,7 @@ export default function Footer() {
                 x="0px"
                 y="0px"
                 viewBox="0 0 37 37"
-                enable-background="new 0 0 37 37"
+                enableBackground="new 0 0 37 37"
                 xmlSpace="preserve"
                 className="w-14 lg:w-10 h-14 lg:h-10"
               >
