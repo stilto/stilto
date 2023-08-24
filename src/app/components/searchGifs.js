@@ -53,15 +53,23 @@ export default function SearchGifs() {
           <section className="w-full grid grid-cols-4 gap-y-6 gap-x-10 justify-items-center my-10">
             {gifsFetched.map((i, key) => {
               return (
-                <video
-                  autoPlay
-                  muted
-                  loop
+                <section
                   key={key}
-                  className="w-48 lg:w-60 h-48 lg:h-60 mt-10 -ml-12 rounded-lg"
+                  className="w-full flex flex-col items-center"
                 >
-                  <source src={i.images.original.mp4} type="video/mp4" />
-                </video>
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    key={key}
+                    className="w-48 lg:w-60 h-48 lg:h-60 mt-10 rounded-lg"
+                  >
+                    <source src={i.images.original.mp4} type="video/mp4" />
+                  </video>
+                  <button className="w-36 h-10 bg-[#877b9a] hover:bg-white text-white hover:text-[#877b9a] border border-white hover:border-[#877b9a] rounded-full">
+                    Use this gif
+                  </button>
+                </section>
               );
             })}
           </section>
