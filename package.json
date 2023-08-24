@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@squirrel-labs/peanut-sdk": "^0.0.84",
     "autoprefixer": "10.4.15",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.18",
+    "ethers": "^5.7.2",
     "next": "13.4.18",
     "postcss": "8.4.28",
     "react": "18.2.0",
