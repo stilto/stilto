@@ -41,7 +41,7 @@ export default function HomeComp() {
       </section>
       <Link href="/new-card">
         <button className="w-64 h-16 bg-[#877b9a] hover:bg-[#8f82a5] text-white text-xl my-20 rounded-xl">
-          Start Creating
+          Start Sending
         </button>
       </Link>
       <section className="w-full flex flex-col items-center bg-[#EAE0CC] pt-8 pb-20">
@@ -89,7 +89,7 @@ export default function HomeComp() {
       </section>
       <Link href="/new-card">
         <button className="w-64 h-16 bg-[#877b9a] hover:bg-[#8f82a5] text-white text-xl my-20 rounded-xl">
-          Start Creating
+          Start Sending
         </button>
       </Link>
     </section>

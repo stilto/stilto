@@ -40,7 +40,7 @@ export default function Hero() {
           </p>
           <Link href="/new-card">
             <button className="w-44 h-12 bg-[#877b9a] hover:bg-[#8f82a5] text-lg mt-6 rounded-xl">
-              Start Creating
+              Start Sending
             </button>
           </Link>
         </section>
