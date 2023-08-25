@@ -1,12 +1,12 @@
 import Header from "../components/header";
-import NewCardComp from "../components/newCard";
+import AddCardComp from "../components/addCard";
 import Footer from "../components/footer";
 
-export default function NewCard() {
+export default function AddCard() {
   return (
     <section>
       <Header />
-      <NewCardComp />
+      <AddCardComp />
       <Footer />
     </section>
   );

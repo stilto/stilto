@@ -87,7 +87,7 @@ const cards = [
   Card39,
 ];
 
-export default function NewCardComp() {
+export default function AddCardComp() {
   const [cardTab, setCardTab] = useState(true);
   const [gifTab, setGifTab] = useState(false);
 
@@ -109,15 +109,15 @@ export default function NewCardComp() {
     <section className="min-h-screen flex flex-col items-center bg-white text-black">
       <section className="w-full h-20 lg:h-12 flex justify-center mt-2">
         <section className="w-full lg:w-1/2 h-20 lg:h-12 flex justify-evenly items-center text-xl text-center">
-          <p className="text-[#4392cf]">
+          <Link href="/add-card" className="text-[#4392cf]">
             <span className="font-semibold">1.</span> Chose card/gif
-          </p>
-          <p>
+          </Link>
+          <Link href="/add-message">
             <span className="font-semibold">2.</span> Add your message
-          </p>
-          <p>
+          </Link>
+          <Link href="/add-crypto">
             <span className="font-semibold">3.</span> Add crypto amount
-          </p>
+          </Link>
         </section>
       </section>
       <section className="w-3/4 sm:w-1/2 md:w-1/3 h-10 flex justify-center items-center bg-[#eae6ef] mt-6 rounded-full outline-none">
