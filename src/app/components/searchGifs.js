@@ -1,7 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import Link from "next/link";
+
+import Context from "../utils/context";
 
 export default function SearchGifs() {
+  const { chosenGif, setChosenGif } = useContext(Context);
   const [inputValue, setInputValue] = useState("");
   const [gifsFetched, setGifsFetched] = useState([]);
   const [isGifsFetched, setIsGifsFetched] = useState(false);
@@ -23,6 +27,11 @@ export default function SearchGifs() {
         setIsGifsFetched(true);
         console.log("data", data.data);
       });
+  };
+
+  const useGif = (e) => {
+    setChosenGif(e);
+    console.log("eeee", e);
   };
 
   return (
@@ -66,9 +75,14 @@ export default function SearchGifs() {
                   >
                     <source src={i.images.original.mp4} type="video/mp4" />
                   </video>
-                  <button className="w-36 h-10 bg-[#877b9a] hover:bg-white text-white hover:text-[#877b9a] border border-white hover:border-[#877b9a] rounded-full">
-                    Use this gif
-                  </button>
+                  <Link href="/new-message">
+                    <button
+                      className="w-36 h-10 bg-[#877b9a] hover:bg-white text-white hover:text-[#877b9a] border border-white hover:border-[#877b9a] rounded-full"
+                      onClick={() => useGif(i.images.original.mp4)}
+                    >
+                      Use this gif
+                    </button>
+                  </Link>
                 </section>
               );
             })}
