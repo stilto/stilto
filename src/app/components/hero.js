@@ -39,7 +39,7 @@ export default function Hero() {
             and send the desired crypto amount to a friend that claims via a
             link.
           </p>
-          <Link href="/new-card">
+          <Link href="/add-card">
             <button className="w-44 h-12 bg-[#877b9a] hover:bg-[#8f82a5] text-lg mt-6 rounded-xl">
               Start Sending
             </button>
