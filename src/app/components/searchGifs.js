@@ -75,7 +75,7 @@ export default function SearchGifs() {
                   >
                     <source src={i.images.original.mp4} type="video/mp4" />
                   </video>
-                  <Link href="/new-message">
+                  <Link href="/add-message">
                     <button
                       className="w-36 h-10 bg-[#877b9a] hover:bg-white text-white hover:text-[#877b9a] border border-white hover:border-[#877b9a] rounded-full"
                       onClick={() => useGif(i.images.original.mp4)}
