@@ -6,6 +6,9 @@ import { peanut } from "@squirrel-labs/peanut-sdk";
 
 import Context from "../utils/context";
 import ConnectWallet from "./connectWallet";
+import createGift from "../createGift";
+// import { prisma } from "..";
+// import { prisma } from "@/app";
 
 export default function AddCryptoComp() {
   const { chosenGif, title, message } = useContext(Context);
@@ -78,6 +81,25 @@ export default function AddCryptoComp() {
     }
   };
 
+  //   async function createGift() {
+  //     "use server";
+  //     console.log("inside createGifts");
+  //     // if (link != "") {
+  //     console.log("inside if");
+  //     await prisma.gift.create({
+  //       data: {
+  //         id: "",
+  //         address: currentAccount ? currentAccount : "",
+  //         title: title ? title : "",
+  //         message: message ? message : "",
+  //         gif: chosenGif ? chosenGif : "",
+  //         card: "",
+  //         claimed: false,
+  //       },
+  //     });
+  //     // }
+  //   }
+
   return (
     <section className="min-h-screen flex flex-col items-center bg-white text-black">
       <section className="w-full h-20 lg:h-12 flex justify-center mt-2">
@@ -101,15 +123,15 @@ export default function AddCryptoComp() {
               <section className="h-14 flex justify-center items-center">
                 <section>
                   <label htmlFor="amount" className="mr-2 text-lg">
-                    Amount:
+                    ETH amount to gift:
                   </label>
                   <input
                     type="number"
                     id="amount"
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
-                    placeholder="Enter amount in ETH"
-                    className="w-40 h-10 bg-gray-200 text-slate-900 text-right placeholder:text-slate-900 placeholder:text-sm placeholder:text-left placeholder:pl-2 outline-none"
+                    placeholder="amount"
+                    className="w-24 h-10 bg-gray-200 text-slate-900 text-right placeholder:text-slate-900 placeholder:text-sm placeholder:text-left placeholder:pl-2 outline-none"
                   />
                   <button
                     onClick={createLink}
@@ -117,6 +139,7 @@ export default function AddCryptoComp() {
                   >
                     Create link
                   </button>
+                  <button onClick={createIt}>Create IT NOW</button>
                 </section>
               </section>
               <section className="flex justify-center">
