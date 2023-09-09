@@ -35,7 +35,7 @@ export default function Hero() {
             <br /> along with a digital greeting card or a gif
           </p>
           <p className="md:w-2/3 text-gray-900 mt-10 md:text-lg">
-            Create digital greeting cards or chose a gif, add your personal
+            Create digital greeting cards or choose a gif, add your personal
             message, and send the desired crypto amount to a friend that claims
             via a link.
           </p>
