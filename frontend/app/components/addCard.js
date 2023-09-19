@@ -1,8 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+import Context from "../utils/context";
 import SearchGifs from "./searchGifs";
 
 import Card1 from "../assets/cards/1.png";
@@ -88,6 +89,7 @@ const cards = [
 ];
 
 export default function AddCardComp() {
+  const { chosenCard, setChosenCard } = useContext(Context);
   const [cardTab, setCardTab] = useState(true);
   const [gifTab, setGifTab] = useState(false);
 
@@ -103,6 +105,10 @@ export default function AddCardComp() {
       setCardTab(true);
       setGifTab(false);
     }
+  };
+
+  const useCard = (e) => {
+    setChosenCard(e);
   };
 
   return (
@@ -145,7 +151,7 @@ export default function AddCardComp() {
         </section>
       </section>
       {cardTab ? (
-        <section className="w-full grid grid-cols-4 gap-y-6 gap-x-10 justify-items-center my-14">
+        <section className="w-full grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-10 justify-items-center my-14">
           {cards.map((i, key) => {
             return (
               <section
@@ -153,8 +159,14 @@ export default function AddCardComp() {
                 className="w-4/6 flex flex-col items-center py-4 border-2 rounded-lg"
               >
                 <Image src={i} alt="card" width={150} height={100} />
-                <Link href="/">
-                  <button className="w-36 h-10 bg-[#877b9a] hover:bg-white text-white hover:text-[#877b9a] mt-4 border border-white hover:border-[#877b9a] rounded-full">
+                <Link
+                  href="/add-message"
+                  className="w-full flex justify-center mt-4"
+                >
+                  <button
+                    className="w-full lg:w-36 h-14 md:h-10 flex justify-center items-center bg-[#877b9a] hover:bg-white text-white hover:text-[#877b9a] border border-white hover:border-[#877b9a] rounded-full"
+                    onClick={() => useCard(i)}
+                  >
                     Use this card
                   </button>
                 </Link>
