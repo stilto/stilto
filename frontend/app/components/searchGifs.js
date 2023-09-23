@@ -59,7 +59,7 @@ export default function SearchGifs() {
             <p className="my-10 text-2xl font-semibold">Search for gifs</p>
           </section>
         ) : (
-          <section className="w-full grid grid-cols-4 gap-y-6 gap-x-10 justify-items-center my-10">
+          <section className="w-full grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-10 justify-items-center my-10">
             {gifsFetched.map((i, key) => {
               return (
                 <section
