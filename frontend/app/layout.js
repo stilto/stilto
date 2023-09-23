@@ -13,6 +13,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
   const [chosenGif, setChosenGif] = useState("");
+  const [chosenCard, setChosenCard] = useState("");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
 
@@ -23,6 +24,8 @@ export default function RootLayout({ children }) {
           value={{
             chosenGif,
             setChosenGif,
+            chosenCard,
+            setChosenCard,
             title,
             setTitle,
             message,
