@@ -56,7 +56,7 @@ export default function Footer() {
             </a>
           </li>
           <li>
-            <a href="https://twitter.com/postable" target="_blank">
+            <a href="https://twitter.com/stiltoc" target="_blank">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 37 37"
