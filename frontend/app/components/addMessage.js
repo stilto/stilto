@@ -7,7 +7,7 @@ import Context from "../utils/context";
 import Card1 from "../assets/cards/1.png";
 
 export default function AddMessageComp() {
-  const { chosenGif, setTitle, setMessage } = useContext(Context);
+  const { chosenGif, chosenCard, setTitle, setMessage } = useContext(Context);
   const [titleValue, setTitleValue] = useState("");
   const [messageValue, setMessageValue] = useState("");
 
@@ -76,20 +76,23 @@ export default function AddMessageComp() {
             </Link>
           </section>
         </section>
-        <section className="w-full h-96 flex flex-col items-center lg:mt-14">
+        <section className="w-full h-96 flex flex-col items-center">
           {chosenGif !== "" ? (
-            <video
-              autoPlay
-              muted
-              loop
-              className="w-48 lg:w-60 h-48 lg:h-60 mt-10 rounded-lg"
-            >
+            <video autoPlay muted loop className="w-96 h-96 mt-10 rounded-lg">
               <source src={chosenGif} type="video/mp4" />
             </video>
           ) : (
-            <section className="flex flex-col items-center border-2 rounded-lg">
-              <Image src={Card1} alt="card" width={300} height={300} />
-            </section>
+            chosenCard && (
+              <section className="flex flex-col items-center border-2 rounded-lg">
+                <Image
+                  src={chosenCard}
+                  alt="card"
+                  width={300}
+                  height={300}
+                  className="rounded-md"
+                />
+              </section>
+            )
           )}
         </section>
       </section>
