@@ -1,17 +1,17 @@
 "use client";
 import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ethers } from "ethers";
 import { peanut } from "@squirrel-labs/peanut-sdk";
+import axios from "axios";
 
 import Context from "../utils/context";
 import ConnectWallet from "./connectWallet";
-import createGift from "../createGift";
-// import { prisma } from "..";
-// import { prisma } from "@/app";
+// import createGift from "../createGift";
 
 export default function AddCryptoComp() {
-  const { chosenGif, title, message } = useContext(Context);
+  const { chosenGif, chosenCard, title, message } = useContext(Context);
   const [currentAccount, setCurrentAccount] = useState("");
   const [signer, setSigner] = useState(null);
   //   const [chainId, setChainId] = useState(null);
@@ -59,6 +59,7 @@ export default function AddCryptoComp() {
       verbose: true,
     });
     setLink(link);
+    createClaimUrl(link);
   };
 
   const claimLink = async () => {
@@ -81,31 +82,23 @@ export default function AddCryptoComp() {
     }
   };
 
-  //   async function createGift() {
-  //     "use server";
-  //     console.log("inside createGifts");
-  //     // if (link != "") {
-  //     console.log("inside if");
-  //     await prisma.gift.create({
-  //       data: {
-  //         id: "",
-  //         address: currentAccount ? currentAccount : "",
-  //         title: title ? title : "",
-  //         message: message ? message : "",
-  //         gif: chosenGif ? chosenGif : "",
-  //         card: "",
-  //         claimed: false,
-  //       },
-  //     });
-  //     // }
-  //   }
+  const createClaimUrl = async (link) => {
+    await axios.post("http://localhost:5001/createclaimurl", {
+      sender: currentAccount,
+      gif: chosenGif,
+      card: chosenCard,
+      title,
+      message,
+      claimLink: link,
+    });
+  };
 
   return (
     <section className="min-h-screen flex flex-col items-center bg-white text-black">
       <section className="w-full h-20 lg:h-12 flex justify-center mt-2">
         <section className="w-full lg:w-1/2 h-20 lg:h-12 flex justify-evenly items-center text-xl text-center">
           <Link href="/add-card">
-            <span className="font-semibold">1.</span> Chose card/gif
+            <span className="font-semibold">1.</span> Choose card/gif
           </Link>
           <Link href="/add-message">
             <span className="font-semibold">2.</span> Add your message
@@ -119,7 +112,7 @@ export default function AddCryptoComp() {
       {currentAccount && (
         <section className="w-full min-h-screen flex flex-col lg:flex-row lg:justify-center items-center lg:items-start bg-white text-black">
           <section className="w-full h-full flex mt-10 p-2 rounded">
-            <section className="w-1/2">
+            <section className="w-1/2 flex flex-col justify-center items-end">
               <section className="h-14 flex justify-center items-center">
                 <section>
                   <label htmlFor="amount" className="mr-2 text-lg">
@@ -135,14 +128,29 @@ export default function AddCryptoComp() {
                   />
                   <button
                     onClick={createLink}
-                    className="w-36 h-10 bg-[#4392cf] hover:bg-[#4499da] text-slate-100 text-base font-semibold outline-none border-none rounded-r-lg cursor-pointer uppercase"
+                    // className="w-36 h-10 bg-[#4392cf] hover:bg-[#4499da] text-slate-100 text-base font-semibold outline-none border-none rounded-r-lg cursor-pointer uppercase"
+                    className="w-36 h-10 bg-[#877b9a] hover:bg-[#8f82a5] text-base text-white ml-4 rounded-lg"
                   >
                     Create link
                   </button>
-                  <button onClick={createIt}>Create IT NOW</button>
+                  {/* <button onClick={createIt}>Create IT NOW</button> */}
                 </section>
               </section>
-              <section className="flex justify-center">
+              {!link ? (
+                <section className="h-28 mt-6">
+                  Add amount and click &apos;Create link&apos; to get your
+                  claimable link.
+                </section>
+              ) : (
+                <section className="h-28 mt-6">
+                  Share this claimable link:{" "}
+                  {`https://www.stilto.com/card/claim?from=${currentAccount}&title=${title.replaceAll(
+                    " ",
+                    "-"
+                  )}&message=${message.replaceAll(" ", "-")}`}
+                </section>
+              )}
+              {/* <section className="flex justify-center">
                 <section className="p-4">
                   <section>
                     <section>
@@ -174,19 +182,26 @@ export default function AddCryptoComp() {
                     </section>
                   </section>
                 </section>
-              </section>
+              </section> */}
             </section>
             <section className="w-1/2 flex flex-col items-center">
               <section className="w-full flex flex-col items-center rounded-lg">
-                {chosenGif && (
-                  <video
-                    autoPlay
-                    muted
-                    loop
-                    className="w-48 lg:w-60 h-48 lg:h-60 mt-10 rounded-lg"
-                  >
+                {chosenGif !== "" ? (
+                  <video autoPlay muted loop className="w-96 h-96 rounded-lg">
                     <source src={chosenGif} type="video/mp4" />
                   </video>
+                ) : (
+                  chosenCard && (
+                    <section className="flex flex-col items-center border-2 rounded-lg">
+                      <Image
+                        src={chosenCard}
+                        alt="card"
+                        width={300}
+                        height={300}
+                        className="rounded-md"
+                      />
+                    </section>
+                  )
                 )}
                 {title && (
                   <h1 className="text-xl text-center font-semibold mt-4">

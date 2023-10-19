@@ -1,0 +1,23 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Gift {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  sender    String    
+  gif       String?
+  card      String?
+  title     String?
+  message   String?
+  claimLink String
+  claimed   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+}
