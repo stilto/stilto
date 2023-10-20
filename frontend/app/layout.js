@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 
 import Context from "./utils/context";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 
 // export const metadata = {
 //   title: "stilto - send a gift card with crypto",
@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={poppins.className}>
         <Context.Provider
           value={{
             chosenGif,
