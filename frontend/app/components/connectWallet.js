@@ -35,7 +35,7 @@ export default function ConnectWallet() {
       {!currentAccount && (
         <button
           onClick={connectWallet}
-          className="w-60 h-14 bg-[#877b9a] hover:bg-[#8f82a5] text-white text-lg mt-6 rounded-xl uppercase"
+          className="w-60 h-14 bg-[#1de9b6] hover:bg-[#00bfa5] text-white text-lg mt-6 rounded-xl uppercase"
         >
           Connect Wallet
         </button>
