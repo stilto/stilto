@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Ubuntu } from "next/font/google";
+import { Poppins } from "next/font/google";
 
-const ubuntu = Ubuntu({ weight: "400", subsets: ["greek"] });
+const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 import GC from "../assets/gc.png";
 import Wallet from "../assets/wallet.png";
 import Send from "../assets/send.png";
@@ -10,7 +10,7 @@ import Send from "../assets/send.png";
 export default function HomeComp() {
   return (
     <section className="w-full flex flex-col items-center text-gray-900 mt-10">
-      <h1 className={`${ubuntu.className} text-3xl font-semibold`}>
+      <h1 className={`${poppins.className} text-3xl font-semibold`}>
         HOW IT WORKS
       </h1>
       <section className="w-3/4 flex flex-col md:flex-row md:justify-between mt-8">
@@ -40,45 +40,32 @@ export default function HomeComp() {
         </section>
       </section>
       <Link href="/add-card" className="my-20">
-        <button className="w-64 h-16 bg-[#877b9a] hover:bg-[#8f82a5] text-white text-xl rounded-xl">
+        <button className="w-64 h-16 bg-[#1de9b6] hover:bg-[#00bfa5] text-white text-xl rounded-xl">
           Start Sending
         </button>
       </Link>
-      <section className="w-full flex flex-col items-center bg-[#EAE0CC] pt-8 pb-20">
-        <h1 className={`${ubuntu.className} text-3xl font-semibold`}>
-          ADD GIFS
-        </h1>
-        <p className="text-lg mt-2">
-          Want to send a GIF with crypto? No worries!
-        </p>
-        <section className="w-full flex flex-col lg:flex-row items-center mt-12">
-          <section className="w-full lg:w-2/3 flex justify-center">
-            {/* <video
-              autoPlay
-              muted
-              loop
-              className="w-48 lg:w-64 h-48 lg:h-64 rounded-lg"
+      <section className="w-full flex flex-col items-center bg-[#e0f7fa] pt-8 pb-20">
+        <section className="w-full flex flex-col lg:flex-row items-start mt-12">
+          <section className="w-full lg:w-1/2 text-center lg:text-left text-lg px-10 sm:px-20 md:px-40 lg:px-10 lg:pr-0 text-[#004d40]">
+            <h1
+              className={`${poppins.className} text-[#004d40] md:ml-10 text-3xl font-semibold`}
             >
-              <source src="/hb.mp4" type="video/mp4" />
-            </video> */}
-            <video autoPlay muted loop className="w-full h-96 rounded-lg">
-              <source src="/gm.mp4" type="video/mp4" />
-            </video>
-            {/* <video
-              autoPlay
-              muted
-              loop
-              className="w-48 lg:w-60 h-48 lg:h-60 mt-10 -ml-12 rounded-lg"
-            >
-              <source src="/to.mp4" type="video/mp4" />
-            </video> */}
-          </section>
-          <section className="w-full lg:w-1/3 text-center lg:text-left text-lg mt-8 lg:mt-0 lg:-ml-24 xl:-ml-32 2xl:-ml-44 px-10 sm:px-20 md:px-40 lg:px-0 lg:pr-10">
-            <p>
-              Want to send a GIF instead of a card? That&apos;s not an issue!
-              Search through our library of GIFs and choose the best one for the
-              occasion
+              GIFt Crypto
+            </h1>
+            <p className="text-lg mt-2 md:ml-10">
+              Express yourself with animated fun!
             </p>
+            <p className="mt-4 md:ml-10">
+              Prefer a lively GIF over a static card? Browse our extensive GIF
+              library to find the perfect animation for your occasion, add your
+              personal message, and surprise your friends with crypto in a fun
+              way!
+            </p>
+          </section>
+          <section className="w-full lg:w-1/2 flex justify-center mt-8 lg:mt-0">
+            <video autoPlay muted loop className="w-full h-96 rounded-lg">
+              <source src="/giphy.mp4" type="video/mp4" />
+            </video>
           </section>
         </section>
       </section>
@@ -176,7 +163,7 @@ export default function HomeComp() {
       </section>
 
       <Link href="/add-card" className="my-20">
-        <button className="w-64 h-16 bg-[#877b9a] hover:bg-[#8f82a5] text-white text-xl rounded-xl">
+        <button className="w-64 h-16 bg-[#1de9b6] hover:bg-[#00bfa5] text-white text-xl rounded-xl">
           Start Sending
         </button>
       </Link>
