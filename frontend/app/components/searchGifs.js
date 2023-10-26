@@ -35,10 +35,10 @@ export default function SearchGifs() {
   };
 
   return (
-    <section className="w-full flex flex-col items-center lg:items-end my-10">
+    <section className="w-full flex flex-col items-center lg:items-end my-10 bg-[#e0f7fa] text-[#004d40]">
       <section className="w-full md:w-2/3 lg:w-1/2 xl:w-1/3 flex justify-center lg:justify-start">
         <input
-          className="w-2/3 h-10 pl-2 bg-gray-200 text-slate-900 text-base outline-none border-none rounded-l-lg"
+          className="w-2/3 h-10 pl-2 bg-white text-[#004d40] text-base outline-none border-2 border-[#004d40] rounded-l-lg"
           type="text"
           id="inputField"
           name="inputField"
@@ -47,7 +47,7 @@ export default function SearchGifs() {
           onChange={handleChange}
         />
         <button
-          className="w-1/8 h-10 px-8 bg-[#4392cf] hover:bg-[#4499da] text-slate-100 text-base font-semibold outline-none border-none rounded-r-lg cursor-pointer uppercase"
+          className="w-1/8 h-10 px-8 bg-[#1de9b6] hover:bg-[#00bfa5] text-[#004d40] text-base font-semibold outline-none border-none rounded-r-lg cursor-pointer uppercase"
           onClick={handleSubmit}
         >
           Search
@@ -64,20 +64,20 @@ export default function SearchGifs() {
               return (
                 <section
                   key={key}
-                  className="w-full flex flex-col items-center"
+                  className="w-full flex flex-col items-center shadow-lg rounded-lg bg-white"
                 >
                   <video
                     autoPlay
                     muted
                     loop
                     key={key}
-                    className="w-48 lg:w-60 h-48 lg:h-60 mt-10 rounded-lg"
+                    className="w-48 lg:w-60 h-48 lg:h-60 mt-6 rounded-lg"
                   >
                     <source src={i.images.original.mp4} type="video/mp4" />
                   </video>
-                  <Link href="/add-message">
+                  <Link href="/add-message" className="mb-4">
                     <button
-                      className="w-36 h-10 bg-[#877b9a] hover:bg-white text-white hover:text-[#877b9a] border border-white hover:border-[#877b9a] rounded-full"
+                      className="w-36 h-10 bg-[#1de9b6] hover:bg-[#00bfa5] text-[#004d40] border border-[#1de9b6] hover:border-[#00bfa5] rounded-full"
                       onClick={() => useGif(i.images.original.mp4)}
                     >
                       Use this gif
