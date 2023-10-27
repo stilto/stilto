@@ -28,9 +28,6 @@ export default function ClaimButton() {
     setUrlFrom(urlParams.get("from"));
     setUrlTitle(urlParams.get("title"));
     setUrlMessage(urlParams.get("message"));
-    console.log("from 1", urlFrom);
-    console.log("title 1", urlParams.get("title").replaceAll("-", " "));
-    console.log("message 1", urlMessage.replaceAll("-", " "));
     async function getClaimUrl() {
       await axios
         .get("http://localhost:5001/getclaimurl", {
@@ -41,9 +38,9 @@ export default function ClaimButton() {
           },
         })
         .then((response) => {
+          console.log("response data here", response.data);
           setLink(response.data[0].claimLink);
           setGiftSender(response.data[0].sender);
-          console.log(response.data[0].gif.replace("media0", "media2"));
           setGiftCardOrGif(response.data[0].gif);
           setGiftTitle(response.data[0].title);
           setGiftMessage(response.data[0].message);
@@ -73,7 +70,12 @@ export default function ClaimButton() {
 
   const claimLink = async () => {
     if (!signer || !link) return;
-    const claimTx = await peanut.claimLink({ signer: signer, link: link });
+    const claimTx = await peanut.claimLink({
+      structSigner: {
+        signer,
+      },
+      link: link,
+    });
     setClaimTx(claimTx);
   };
 
