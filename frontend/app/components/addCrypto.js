@@ -51,15 +51,21 @@ export default function AddCryptoComp() {
 
     window.signer = signer;
 
-    const { link, txReceipt } = await peanut.createLink({
-      signer: signer,
-      chainId: chainId,
-      tokenAmount: amount,
-      tokenType: 0, // 0 for ether, 1 for erc20, 2 for erc721, 3 for erc1155
-      verbose: true,
+    const createLinkResponse = await peanut.createLink({
+      structSigner: { signer },
+      linkDetails: {
+        chainId: chainId,
+        tokenAmount: amount,
+        tokenType: 0, // 0 for ether, 1 for erc20, 2 for erc721, 3 for erc1155
+        verbose: true,
+      },
     });
-    setLink(link);
-    createClaimUrl(link);
+    console.log(
+      "createLinkResponse here :)",
+      createLinkResponse.createdLink.link[0]
+    );
+    setLink(createLinkResponse.createdLink.link[0]);
+    createClaimUrl(createLinkResponse.createdLink.link[0]);
   };
 
   const claimLink = async () => {
