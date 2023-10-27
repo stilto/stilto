@@ -94,7 +94,7 @@ export default function AddCryptoComp() {
   };
 
   return (
-    <section className="min-h-screen flex flex-col items-center bg-white text-black">
+    <section className="min-h-screen flex flex-col items-center bg-[#e0f7fa] text-[#004d40]">
       <section className="w-full h-20 lg:h-12 flex justify-center mt-2">
         <section className="w-full lg:w-1/2 h-20 lg:h-12 flex justify-evenly items-center text-xl text-center">
           <Link href="/add-card">
@@ -103,116 +103,75 @@ export default function AddCryptoComp() {
           <Link href="/add-message">
             <span className="font-semibold">2.</span> Add your message
           </Link>
-          <Link href="/add-crypto" className="text-[#4392cf]">
+          <Link href="/add-crypto" className="text-[#1de9b6]">
             <span className="font-semibold">3.</span> Add crypto amount
           </Link>
         </section>
       </section>
       {!currentAccount && <ConnectWallet />}
       {currentAccount && (
-        <section className="w-full min-h-screen flex flex-col lg:flex-row lg:justify-center items-center lg:items-start bg-white text-black">
-          <section className="w-full h-full flex mt-10 p-2 rounded">
-            <section className="w-1/2 flex flex-col justify-center items-end">
-              <section className="h-14 flex justify-center items-center">
-                <section>
-                  <label htmlFor="amount" className="mr-2 text-lg">
-                    ETH amount to gift:
-                  </label>
-                  <input
-                    type="number"
-                    id="amount"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                    placeholder="amount"
-                    className="w-24 h-10 bg-gray-200 text-slate-900 text-right placeholder:text-slate-900 placeholder:text-sm placeholder:text-left placeholder:pl-2 outline-none"
+        <section className="w-full h-screen flex flex-col lg:flex-row lg:justify-evenly items-center lg:items-start bg-[#e0f7fa] text-[#004d40] mt-6">
+          <section className="w-full lg:w-2/5 h-3/4 flex flex-col p-2 rounded-lg shadow-lg bg-white">
+            <section className="flex justify-between md:justify-evenly items-center mt-10 mb-4">
+              <label htmlFor="amount" className="text-lg">
+                ETH amount to gift:
+              </label>
+              <section className="flex items-center">
+                <input
+                  type="number"
+                  id="amount"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  placeholder="amount"
+                  className="w-24 h-10 bg-white text-[#004d40] text-right placeholder:text-[#004d40] placeholder:text-sm placeholder:text-left placeholder:pl-2 outline-none border-2 border-[#004d40] rounded-l-lg"
+                />
+                <button
+                  onClick={createLink}
+                  className="w-36 h-10 bg-[#1de9b6] hover:bg-[#00bfa5] text-lg text-[#004d40] ml-4 rounded-r-lg"
+                >
+                  Create link
+                </button>
+              </section>
+            </section>
+            {!link ? (
+              <section className="text-center">
+                Add amount and click &apos;Create link&apos; to get your
+                claimable link.
+              </section>
+            ) : (
+              <section className="text-center break-all">
+                Share this claimable link:{" "}
+                {`https://www.stilto.com/card/claim?from=${currentAccount}&title=${title.replaceAll(
+                  " ",
+                  "-"
+                )}&message=${message.replaceAll(" ", "-")}`}
+              </section>
+            )}
+          </section>
+          <section className="w-full lg:w-2/5 h-3/4 flex flex-col items-center mt-10 lg:mt-0 p-2 rounded-lg shadow-lg bg-white">
+            {chosenGif !== "" ? (
+              <video autoPlay muted loop className="w-96 h-96 rounded-lg">
+                <source src={chosenGif} type="video/mp4" />
+              </video>
+            ) : (
+              chosenCard && (
+                <section className="flex flex-col items-center border-2 rounded-lg">
+                  <Image
+                    src={chosenCard}
+                    alt="card"
+                    width={300}
+                    height={300}
+                    className="rounded-md"
                   />
-                  <button
-                    onClick={createLink}
-                    // className="w-36 h-10 bg-[#4392cf] hover:bg-[#4499da] text-slate-100 text-base font-semibold outline-none border-none rounded-r-lg cursor-pointer uppercase"
-                    className="w-36 h-10 bg-[#877b9a] hover:bg-[#8f82a5] text-base text-white ml-4 rounded-lg"
-                  >
-                    Create link
-                  </button>
-                  {/* <button onClick={createIt}>Create IT NOW</button> */}
                 </section>
-              </section>
-              {!link ? (
-                <section className="h-28 mt-6">
-                  Add amount and click &apos;Create link&apos; to get your
-                  claimable link.
-                </section>
-              ) : (
-                <section className="h-28 mt-6">
-                  Share this claimable link:{" "}
-                  {`https://www.stilto.com/card/claim?from=${currentAccount}&title=${title.replaceAll(
-                    " ",
-                    "-"
-                  )}&message=${message.replaceAll(" ", "-")}`}
-                </section>
-              )}
-              {/* <section className="flex justify-center">
-                <section className="p-4">
-                  <section>
-                    <section>
-                      {link && (
-                        <section className="h-20 flex flex-col items-center">
-                          <h2 className="border-b-2 mb-2">
-                            SHARE THIS CLAIM LINK
-                          </h2>
-                          <p>{link}</p>
-                        </section>
-                      )}
-                    </section>
-                    <section className="flex flex-col items-center mt-6">
-                      <p className="border-b-2 mb-2">CHECK CLAIM STATUS</p>
-                      <button
-                        onClick={checkLinkStatus}
-                        //   className="h-10 bg-slate-100 hover:bg-black text-black hover:text-slate-100 font-semibold mb-2 px-6 border-2 border-black uppercase"
-                        className="w-52 h-12 bg-[#4392cf] hover:bg-[#4499da] text-slate-100 text-base font-semibold outline-none border-none rounded-lg cursor-pointer uppercase"
-                      >
-                        Check Claim Status
-                      </button>
-                      {linkStatus !== null && (
-                        <section>
-                          <p className="text-lg">
-                            Link is claimed: {linkStatus.toString()}
-                          </p>
-                        </section>
-                      )}
-                    </section>
-                  </section>
-                </section>
-              </section> */}
-            </section>
-            <section className="w-1/2 flex flex-col items-center">
-              <section className="w-full flex flex-col items-center rounded-lg">
-                {chosenGif !== "" ? (
-                  <video autoPlay muted loop className="w-96 h-96 rounded-lg">
-                    <source src={chosenGif} type="video/mp4" />
-                  </video>
-                ) : (
-                  chosenCard && (
-                    <section className="flex flex-col items-center border-2 rounded-lg">
-                      <Image
-                        src={chosenCard}
-                        alt="card"
-                        width={300}
-                        height={300}
-                        className="rounded-md"
-                      />
-                    </section>
-                  )
-                )}
-                {title && (
-                  <h1 className="text-xl text-center font-semibold mt-4">
-                    {title}
-                  </h1>
-                )}
-                {message && (
-                  <p className="w-full text-center mt-2">{message}</p>
-                )}
-              </section>
-            </section>
+              )
+            )}
+            {title && (
+              <h1 className="text-xl text-center font-semibold mt-4">
+                {title}
+              </h1>
+            )}
+            {message && <p className="w-full text-center mt-2">{message}</p>}
           </section>
         </section>
       )}
