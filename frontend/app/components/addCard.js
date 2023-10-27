@@ -112,10 +112,10 @@ export default function AddCardComp() {
   };
 
   return (
-    <section className="min-h-screen flex flex-col items-center bg-white text-black">
+    <section className="min-h-screen flex flex-col items-center bg-[#e0f7fa] text-[#004d40]">
       <section className="w-full h-20 lg:h-12 flex justify-center mt-2">
         <section className="w-full lg:w-1/2 h-20 lg:h-12 flex justify-evenly items-center text-xl text-center">
-          <Link href="/add-card" className="text-[#4392cf]">
+          <Link href="/add-card" className="text-[#1de9b6]">
             <span className="font-semibold">1.</span> Choose card/gif
           </Link>
           <Link href="/add-message">
@@ -126,12 +126,12 @@ export default function AddCardComp() {
           </Link>
         </section>
       </section>
-      <section className="w-3/4 sm:w-1/2 md:w-1/3 h-10 flex justify-center items-center bg-[#eae6ef] mt-6 rounded-full outline-none">
+      <section className="w-3/4 sm:w-1/2 md:w-1/3 h-10 flex justify-center items-center bg-[#004d40] mt-6 rounded-full outline-none">
         <section
           className={`${
             cardTab
-              ? "bg-[#877b9a] text-white transition duration-300 ease-in-out"
-              : ""
+              ? "bg-[#1de9b6] text-[#004d40] transition duration-300 ease-in-out"
+              : "text-white"
           } flex justify-center items-center w-1/2 h-full rounded-full outline-none cursor-pointer`}
           id="card"
           onClick={switchToCard}
@@ -141,8 +141,8 @@ export default function AddCardComp() {
         <section
           className={`${
             gifTab
-              ? "bg-[#877b9a] text-white transition duration-150 ease-in-out"
-              : ""
+              ? "bg-[#1de9b6] text-[#004d40] transition duration-150 ease-in-out"
+              : "text-white"
           } flex justify-center items-center w-1/2 h-full rounded-full outline-none cursor-pointer`}
           id="gif"
           onClick={switchToGif}
@@ -156,7 +156,7 @@ export default function AddCardComp() {
             return (
               <section
                 key={key}
-                className="w-4/6 flex flex-col items-center py-4 border-2 rounded-lg"
+                className="w-4/6 flex flex-col items-center py-4 border-2 rounded-lg shadow-lg bg-white"
               >
                 <Image src={i} alt="card" width={150} height={100} />
                 <Link
@@ -164,7 +164,7 @@ export default function AddCardComp() {
                   className="w-full flex justify-center mt-4"
                 >
                   <button
-                    className="w-full lg:w-36 h-14 md:h-10 flex justify-center items-center bg-[#877b9a] hover:bg-white text-white hover:text-[#877b9a] border border-white hover:border-[#877b9a] rounded-full"
+                    className="w-full lg:w-36 h-14 md:h-10 flex justify-center items-center bg-[#1de9b6] hover:bg-[#00bfa5] text-[#004d40] border border-[#1de9b6] hover:border-[#00bfa5] rounded-full"
                     onClick={() => useCard(i)}
                   >
                     Use this card
