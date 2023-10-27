@@ -78,7 +78,7 @@ export default function SearchGifs() {
                   <Link href="/add-message" className="mb-4">
                     <button
                       className="w-36 h-10 bg-[#1de9b6] hover:bg-[#00bfa5] text-[#004d40] border border-[#1de9b6] hover:border-[#00bfa5] rounded-full"
-                      onClick={() => useGif(i.images.original.mp4)}
+                      onClick={() => setChosenGif(i.images.original.mp4)}
                     >
                       Use this gif
                     </button>

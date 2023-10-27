@@ -165,7 +165,7 @@ export default function AddCardComp() {
                 >
                   <button
                     className="w-full lg:w-36 h-14 md:h-10 flex justify-center items-center bg-[#1de9b6] hover:bg-[#00bfa5] text-[#004d40] border border-[#1de9b6] hover:border-[#00bfa5] rounded-full"
-                    onClick={() => useCard(i)}
+                    onClick={() => setChosenCard(i)}
                   >
                     Use this card
                   </button>
