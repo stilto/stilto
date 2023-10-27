@@ -42,6 +42,11 @@ export default function ClaimButton() {
         })
         .then((response) => {
           setLink(response.data[0].claimLink);
+          setGiftSender(response.data[0].sender);
+          console.log(response.data[0].gif.replace("media0", "media2"));
+          setGiftCardOrGif(response.data[0].gif);
+          setGiftTitle(response.data[0].title);
+          setGiftMessage(response.data[0].message);
         });
     }
 
@@ -73,13 +78,34 @@ export default function ClaimButton() {
   };
 
   return (
-    <section className="">
-      <button
-        onClick={claimLink}
-        className="bg-red-300 w-24 h-8 flex justify-center items-center"
-      >
-        CLAIM
-      </button>
+    <section className="min-h-screen flex flex-col items-center bg-[#e0f7fa] text-[#004d40] py-10">
+      <section className="w-full lg:w-2/3 flex flex-col lg:flex-row bg-white rounded-lg shadow-lg p-6 md:p-12 mb-6">
+        <section className="w-full lg:w-1/2 flex flex-col items-center lg:items-start lg:pr-4 text-center lg:text-left break-all">
+          <h2 className="text-2xl font-semibold mb-4">{giftSender}</h2>
+          {giftTitle && (
+            <h1 className="text-xl font-semibold mb-2">{giftTitle}</h1>
+          )}
+          {giftMessage && <p className="mb-4">{giftMessage}</p>}
+          <button
+            onClick={claimLink}
+            className="w-44 h-12 bg-[#1de9b6] hover:bg-[#00bfa5] text-lg rounded-xl flex justify-center items-center"
+          >
+            CLAIM
+          </button>
+        </section>
+        <section className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center mt-6 lg:mt-0">
+          {giftCardOrGif && (
+            <video
+              autoPlay
+              muted
+              loop
+              className="w-full h-full rounded-lg shadow-lg"
+            >
+              <source src={giftCardOrGif} type="video/mp4" />
+            </video>
+          )}
+        </section>
+      </section>
     </section>
   );
 }
