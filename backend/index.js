@@ -33,7 +33,6 @@ app.get("/getclaimurl", async (req, res) => {
 });
 
 app.post("/createclaimurl", async (req, res) => {
-  console.log("req", req);
   const { body } = req;
   console.log("body", body);
   const newGift = await prisma.gift.create({
