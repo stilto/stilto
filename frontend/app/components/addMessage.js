@@ -76,13 +76,13 @@ export default function AddMessageComp() {
             </Link>
           </section>
         </section>
-        <section className="w-full h-96 flex flex-col items-center lg:ml-10">
+        <section className="w-full h-full flex flex-col items-center lg:ml-10">
           {chosenGif !== "" ? (
             <video
               autoPlay
               muted
               loop
-              className="w-96 h-96 mt-10 rounded-lg shadow-lg"
+              className="w-96 h-full lg:mt-10 rounded-lg shadow-lg"
             >
               <source src={chosenGif} type="video/mp4" />
             </video>

@@ -111,7 +111,7 @@ export default function AddCryptoComp() {
       {!currentAccount && <ConnectWallet />}
       {currentAccount && (
         <section className="w-full h-screen flex flex-col lg:flex-row lg:justify-evenly items-center lg:items-start bg-[#e0f7fa] text-[#004d40] mt-6">
-          <section className="w-full lg:w-2/5 h-3/4 flex flex-col p-2 rounded-lg shadow-lg bg-white">
+          <section className="w-full lg:w-2/5 h-60 lg:h-3/4 flex flex-col p-2 rounded-lg shadow-lg bg-white">
             <section className="flex justify-between md:justify-evenly items-center mt-10 mb-4">
               <label htmlFor="amount" className="text-lg">
                 ETH amount to gift:
@@ -148,7 +148,7 @@ export default function AddCryptoComp() {
               </section>
             )}
           </section>
-          <section className="w-full lg:w-2/5 h-3/4 flex flex-col items-center mt-10 lg:mt-0 p-2 rounded-lg shadow-lg bg-white">
+          <section className="w-full lg:w-2/5 h-3/4 flex flex-col justify-center items-center mt-10 lg:mt-0 p-2 rounded-lg shadow-lg bg-white">
             {chosenGif !== "" ? (
               <video autoPlay muted loop className="w-96 h-96 rounded-lg">
                 <source src={chosenGif} type="video/mp4" />
