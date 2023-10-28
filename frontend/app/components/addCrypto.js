@@ -89,7 +89,7 @@ export default function AddCryptoComp() {
   };
 
   const createClaimUrl = async (link) => {
-    await axios.post("http://stilto.io/createclaimurl", {
+    await axios.post("https://stilto.io/createclaimurl", {
       sender: currentAccount,
       gif: chosenGif,
       card: chosenCard,
