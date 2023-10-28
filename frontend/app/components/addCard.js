@@ -90,8 +90,8 @@ const cards = [
 
 export default function AddCardComp() {
   const { chosenCard, setChosenCard } = useContext(Context);
-  const [cardTab, setCardTab] = useState(true);
-  const [gifTab, setGifTab] = useState(false);
+  const [cardTab, setCardTab] = useState(false);
+  const [gifTab, setGifTab] = useState(true);
 
   const switchToGif = async () => {
     if (!gifTab) {
