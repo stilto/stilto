@@ -147,7 +147,7 @@ export default function AddCryptoComp() {
             ) : (
               <section className="text-center break-all">
                 Share this claimable link:{" "}
-                {`https://www.stilto.com/card/claim?from=${currentAccount}&title=${title.replaceAll(
+                {`http://www.stilto.com/card/claim?from=${currentAccount}&title=${title.replaceAll(
                   " ",
                   "-"
                 )}&message=${message.replaceAll(" ", "-")}`}
