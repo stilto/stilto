@@ -89,7 +89,7 @@ export default function AddCryptoComp() {
   };
 
   const createClaimUrl = async (link) => {
-    await axios.post("http://stilto.io/createclaimurl", {
+    await axios.post("https://stilto.io/createclaimurl", {
       sender: currentAccount,
       gif: chosenGif,
       card: chosenCard,
@@ -147,7 +147,7 @@ export default function AddCryptoComp() {
             ) : (
               <section className="text-center break-all">
                 Share this claimable link:{" "}
-                {`http://www.stilto.com/card/claim?from=${currentAccount}&title=${title.replaceAll(
+                {`https://www.stilto.com/card/claim?from=${currentAccount}&title=${title.replaceAll(
                   " ",
                   "-"
                 )}&message=${message.replaceAll(" ", "-")}`}
