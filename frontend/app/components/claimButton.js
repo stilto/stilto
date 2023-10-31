@@ -30,7 +30,7 @@ export default function ClaimButton() {
     setUrlMessage(urlParams.get("message"));
     async function getClaimUrl() {
       await axios
-        .get("https://stilto.io/getclaimurl", {
+        .get("https://api.stilto.io/getclaimurl", {
           params: {
             sender: urlParams.get("from"),
             title: urlParams.get("title").replaceAll("-", " "),
