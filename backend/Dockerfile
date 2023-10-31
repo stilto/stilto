@@ -13,6 +13,9 @@ RUN npm install
 # Copy the rest of the app to the container
 COPY . .
 
+# Generate Prisma client
+RUN npx prisma generate
+
 # Expose port 5001 for the app
 EXPOSE 5001
 

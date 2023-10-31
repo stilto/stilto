@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  frontend:
+    image: stilto/frontend
+    networks:
+      - web
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.stilto_frontend.rule=Host(`stilto.io`)"
+        - "traefik.http.routers.stilto_frontend.entrypoints=https"
+        - "traefik.http.routers.stilto_frontend.tls=true"
+        - "traefik.http.routers.stilto_frontend.service=stilto_frontend"
+        - "traefik.http.services.stilto_frontend.loadbalancer.server.port=3000"
+  backend:
+    image: stilto/backend
+    networks:
+      - web
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.stilto_backend.rule=Host(`api.stilto.io`)"
+        - "traefik.http.routers.stilto_backend.entrypoints=https"
+        - "traefik.http.routers.stilto_backend.tls=true"
+        - "traefik.http.routers.stilto_backend.service=stilto_backend"
+        - "traefik.http.services.stilto_backend.loadbalancer.server.port=5001"
+
+networks:
+  web:
+    external: true
