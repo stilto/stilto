@@ -1,21 +1,9 @@
-import Image from "next/image";
-import { Inter, Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 
 const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 
-import StiltoGuide from "../assets/stilto-guide.png";
-
 export default function HowItWorksComp() {
   return (
-    // <section className="min-h-screen flex justify-center bg-white text-black">
-    //   <Image
-    //     src={StiltoGuide}
-    //     alt="Stilto guide"
-    //     width={650}
-    //     height={650}
-    //     className="h-5/6 mt-8 rounded-xl"
-    //   />
-    // </section>
     <section className="min-h-screen flex flex-col items-center bg-[#e0f7fa] text-[#004d40] py-8">
       <h1 className={`${poppins.className} text-4xl font-semibold my-4`}>
         How It Works
