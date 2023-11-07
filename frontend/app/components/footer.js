@@ -5,7 +5,7 @@ export default function Footer() {
     <section className="w-full h-64 flex items-center bg-[#ffffff] text-gray-900 border border-t-2">
       <section className="w-full flex flex-col items-center">
         <ul className="w-full md:w-1/2 lg:w-1/4 h-16 flex justify-evenly items-center mb-8">
-          <li>
+          {/* <li>
             <a href="https://instagram.com/postable/" target="_blank">
               <svg
                 version="1.1"
@@ -54,7 +54,7 @@ export default function Footer() {
                 <path d="M18.5 0C8.3 0 0 8.3 0 18.5c0 7.6 4.6 14.1 11 16.9-.1-1.3 0-2.9.3-4.3.4-1.5 2.4-10 2.4-10s-.6-1.2-.6-2.9c0-2.8 1.6-4.8 3.6-4.8 1.7 0 2.5 1.3 2.5 2.8 0 1.7-1.1 4.2-1.6 6.6-.5 2 1 3.6 2.9 3.6 3.5 0 5.9-4.5 5.9-9.8 0-4.1-2.7-7.1-7.7-7.1-5.6 0-9.2 4.2-9.2 8.9 0 1.6.5 2.8 1.2 3.6.3.4.4.6.3 1-.1.3-.3 1.2-.4 1.5-.1.5-.5.6-.9.5C7.2 23.8 6 21 6 17.8c0-5.3 4.5-11.5 13.2-11.5 7.1 0 11.7 5.1 11.7 10.6 0 7.3-4.1 12.6-9.9 12.6-2 0-3.9-1.1-4.5-2.3 0 0-1.1 4.3-1.3 5.1-.4 1.4-1.2 2.9-1.9 4 1.7.5 3.4.8 5.3.8 10.2 0 18.5-8.3 18.5-18.5C37 8.3 28.7 0 18.5 0z"></path>
               </svg>
             </a>
-          </li>
+          </li> */}
           <li>
             <a href="https://twitter.com/stiltoc" target="_blank">
               <svg
@@ -74,17 +74,17 @@ export default function Footer() {
             <Link href="/">Home</Link>
           </li>
           <li>
-            <Link href="/">About</Link>
+            <Link href="/how-it-works">About</Link>
           </li>
           <li>
             <Link href="/faq">FAQ</Link>
           </li>
-          <li>
+          {/* <li>
             <Link href="/">Terms & Conditions</Link>
           </li>
           <li>
             <Link href="/">Privacy Policy</Link>
-          </li>
+          </li> */}
         </ul>
       </section>
     </section>
