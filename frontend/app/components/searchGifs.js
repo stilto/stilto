@@ -12,7 +12,7 @@ export default function SearchGifs() {
 
   const API_URI = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.NEXT_PUBLIC_GIPHY_API_KEY}&q=`;
   const parameters =
-    "&limit=25&offset=0&rating=g&lang=en&bundle=messaging_non_clips";
+    "&limit=35&offset=0&rating=g&lang=en&bundle=messaging_non_clips";
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
@@ -25,13 +25,7 @@ export default function SearchGifs() {
       .then((data) => {
         setGifsFetched(data.data);
         setIsGifsFetched(true);
-        console.log("data", data.data);
       });
-  };
-
-  const useGif = (e) => {
-    setChosenGif(e);
-    console.log("eeee", e);
   };
 
   return (
