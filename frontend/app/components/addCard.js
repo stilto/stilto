@@ -151,28 +151,40 @@ export default function AddCardComp() {
         </section>
       </section>
       {cardTab ? (
-        <section className="w-full grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-10 justify-items-center my-14">
-          {cards.map((i, key) => {
-            return (
-              <section
-                key={key}
-                className="w-4/6 flex flex-col items-center py-4 border-2 rounded-lg shadow-lg bg-white"
-              >
-                <Image src={i} alt="card" width={150} height={100} />
-                <Link
-                  href="/add-message"
-                  className="w-full flex justify-center mt-4"
+        <section className="w-full">
+          <section className="flex justify-center mt-6">
+            <section
+              className="py-4 px-8 bg-red-500 items-center text-[#e0f7fa] rounded-full flex"
+              role="alert"
+            >
+              <span className="font-semibold text-left flex-auto">
+                Cards coming soon, use GIFs
+              </span>
+            </section>
+          </section>
+          <section className="w-full grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-10 justify-items-center my-14">
+            {cards.map((i, key) => {
+              return (
+                <section
+                  key={key}
+                  className="w-4/6 flex flex-col items-center py-4 border-2 rounded-lg shadow-lg bg-white"
                 >
-                  <button
-                    className="w-full lg:w-36 h-14 md:h-10 flex justify-center items-center bg-[#1de9b6] hover:bg-[#00bfa5] text-[#004d40] border border-[#1de9b6] hover:border-[#00bfa5] rounded-full"
-                    onClick={() => setChosenCard(i)}
+                  <Image src={i} alt="card" width={150} height={100} />
+                  <Link
+                    href="/add-message"
+                    className="w-full flex justify-center mt-4"
                   >
-                    Use this card
-                  </button>
-                </Link>
-              </section>
-            );
-          })}
+                    <button
+                      className="w-full lg:w-36 h-14 md:h-10 flex justify-center items-center bg-[#1de9b6] hover:bg-[#00bfa5] text-[#004d40] border border-[#1de9b6] hover:border-[#00bfa5] rounded-full"
+                      onClick={() => setChosenCard(i)}
+                    >
+                      Use this card
+                    </button>
+                  </Link>
+                </section>
+              );
+            })}
+          </section>
         </section>
       ) : (
         <section className="w-full flex justify-center lg:justify-end my-10">
