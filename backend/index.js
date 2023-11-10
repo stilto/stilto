@@ -15,16 +15,13 @@ app.use(express.json());
 app.get("/getclaimurl", async (req, res) => {
   try {
     const { query } = req;
-    console.log("query in server", query);
     const allGifts = await prisma.gift.findMany({
       where: {
-        sender: query.sender,
-        title: query.title,
-        message: query.message,
+        id: query.id,
       },
     });
 
-    console.log("gifts", allGifts);
+    console.log("all gifts", allGifts);
     return res.status(200).json(allGifts);
   } catch (e) {
     console.log("error", e);
@@ -34,7 +31,6 @@ app.get("/getclaimurl", async (req, res) => {
 
 app.post("/createclaimurl", async (req, res) => {
   const { body } = req;
-  console.log("body", body);
   const newGift = await prisma.gift.create({
     data: {
       sender: body.sender ? body.sender : "",
@@ -47,8 +43,8 @@ app.post("/createclaimurl", async (req, res) => {
     },
   });
 
-  console.log("db here", prisma.gift.findMany());
   console.log("new giiiift", newGift);
+  return res.json(newGift.id);
 });
 
 app.listen(port, () => {
