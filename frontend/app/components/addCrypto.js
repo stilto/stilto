@@ -63,10 +63,6 @@ export default function AddCryptoComp() {
         verbose: true,
       },
     });
-    console.log(
-      "createLinkResponse here :)",
-      createLinkResponse.createdLink.link[0]
-    );
     setLoadingLink(true);
     setLink(createLinkResponse.createdLink.link[0]);
     createClaimUrl(createLinkResponse.createdLink.link[0]);
