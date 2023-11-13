@@ -1,6 +1,5 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
-import Link from "next/link";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ethers } from "ethers";
 import { peanut } from "@squirrel-labs/peanut-sdk";
@@ -8,9 +7,6 @@ import axios from "axios";
 
 export default function ClaimButton() {
   const [currentAccount, setCurrentAccount] = useState("");
-  const [urlFrom, setUrlFrom] = useState("");
-  const [urlTitle, setUrlTitle] = useState("");
-  const [urlMessage, setUrlMessage] = useState("");
   const [signer, setSigner] = useState(null);
   const [link, setLink] = useState("");
   const [claimTx, setClaimTx] = useState(null);
@@ -20,30 +16,26 @@ export default function ClaimButton() {
   const [giftCardOrGif, setGiftCardOrGif] = useState("");
   const [giftTitle, setGiftTitle] = useState("");
   const [giftMessage, setGiftMessage] = useState("");
+  const [giftAmount, setGiftAmount] = useState("");
 
   useEffect(() => {
     checkIfWalletIsConnected();
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    setUrlFrom(urlParams.get("from"));
-    setUrlTitle(urlParams.get("title"));
-    setUrlMessage(urlParams.get("message"));
     async function getClaimUrl() {
       await axios
         .get("https://api.stilto.io/getclaimurl", {
           params: {
-            sender: urlParams.get("from"),
-            title: urlParams.get("title").replaceAll("-", " "),
-            message: urlParams.get("message").replaceAll("-", " "),
+            id: urlParams.get("id"),
           },
         })
         .then((response) => {
-          console.log("response data here", response.data);
           setLink(response.data[0].claimLink);
           setGiftSender(response.data[0].sender);
           setGiftCardOrGif(response.data[0].gif);
           setGiftTitle(response.data[0].title);
           setGiftMessage(response.data[0].message);
+          setGiftAmount(response.data[0].amount);
         });
     }
 
@@ -88,6 +80,7 @@ export default function ClaimButton() {
             <h1 className="text-xl font-semibold mb-2">{giftTitle}</h1>
           )}
           {giftMessage && <p className="mb-4">{giftMessage}</p>}
+          {giftAmount && <p className="mb-4">{giftAmount}</p>}
           <button
             onClick={claimLink}
             className="w-44 h-12 bg-[#1de9b6] hover:bg-[#00bfa5] text-lg rounded-xl flex justify-center items-center"
