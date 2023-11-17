@@ -21,7 +21,6 @@ app.get("/getclaimurl", async (req, res) => {
       },
     });
 
-    console.log("all gifts", allGifts);
     return res.status(200).json(allGifts);
   } catch (e) {
     console.log("error", e);
@@ -44,7 +43,6 @@ app.post("/createclaimurl", async (req, res) => {
     },
   });
 
-  console.log("new giiiift", newGift);
   return res.json(newGift.id);
 });
 
