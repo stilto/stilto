@@ -18,6 +18,7 @@ model Gift {
   title     String?
   message   String?
   amount    String
+  chain     String
   claimLink String
   claimed   Boolean   @default(false)
   createdAt DateTime  @default(now())
