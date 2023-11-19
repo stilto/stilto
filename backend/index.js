@@ -47,6 +47,18 @@ app.post("/createclaimurl", async (req, res) => {
   return res.json(newGift.id);
 });
 
+app.post("/setgiftclaimed", async (req, res) => {
+  const { body } = req;
+  await prisma.gift.update({
+    where: {
+      id: body.id,
+    },
+    data: {
+      claimed: true,
+    },
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
