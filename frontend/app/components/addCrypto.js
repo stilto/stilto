@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ethers } from "ethers";
 import { peanut } from "@squirrel-labs/peanut-sdk";
 import axios from "axios";
+import { useWeb3Modal, useWeb3ModalAccount } from "@web3modal/ethers5/react";
 
 import Context from "../utils/context";
 import ConnectWallet from "./connectWallet";
@@ -12,22 +13,19 @@ import ConnectWallet from "./connectWallet";
 
 export default function AddCryptoComp() {
   const { chosenGif, chosenCard, title, message } = useContext(Context);
+  const { open } = useWeb3Modal();
+  const { chainId, isConnected } = useWeb3ModalAccount();
+
   const [currentAccount, setCurrentAccount] = useState("");
   const [signer, setSigner] = useState(null);
-  //   const [chainId, setChainId] = useState(null);
   const [amount, setAmount] = useState("");
-  const [link, setLink] = useState("");
   const [giftId, setGiftId] = useState("");
   const [giftLinkReady, setGiftLinkReady] = useState(false);
   const [loadingLink, setLoadingLink] = useState(false);
-  const [linkStatus, setLinkStatus] = useState(null);
-  //   const [isConnected, setIsConnected] = useState(false);
-  const [claimTx, setClaimTx] = useState(null);
-  //   const [warningMessage, setWarningMessage] = useState(null);
 
   useEffect(() => {
     checkIfWalletIsConnected();
-  }, [currentAccount]);
+  }, [isConnected]);
 
   const checkIfWalletIsConnected = async () => {
     const accounts = await window.ethereum.request({ method: "eth_accounts" });
@@ -48,47 +46,24 @@ export default function AddCryptoComp() {
   };
 
   const createLink = async () => {
+    setLoadingLink(true);
     if (!signer) throw new Error("Connect wallet first");
     const network = await signer.provider.getNetwork();
     const chainId = network.chainId;
 
     window.signer = signer;
-
     const createLinkResponse = await peanut.createLink({
       structSigner: { signer },
       linkDetails: {
         chainId: chainId,
         tokenAmount: amount,
-        tokenType: 0, // 0 for ether, 1 for erc20, 2 for erc721, 3 for erc1155
-        verbose: true,
+        tokenType: 0,
       },
     });
-    setLoadingLink(true);
-    setLink(createLinkResponse.createdLink.link[0]);
-    createClaimUrl(createLinkResponse.createdLink.link[0]);
+    createClaimUrl(createLinkResponse.link[0], network.name);
   };
 
-  const claimLink = async () => {
-    if (!signer || !link) return;
-    const claimTx = await peanut.claimLink({ signer: signer, link: link });
-    setClaimTx(claimTx);
-  };
-
-  const checkLinkStatus = async () => {
-    if (!signer || !link) throw new Error("signer or link is not set");
-    try {
-      // setLinkStatus({ claimed: true, deposit: null})
-      const { claimed, deposit } = await peanut.getLinkStatus({
-        signer: signer,
-        link: link,
-      });
-      setLinkStatus(claimed);
-    } catch (error) {
-      console.error("Failed to check link status", error);
-    }
-  };
-
-  const createClaimUrl = async (link) => {
+  const createClaimUrl = async (link, chain) => {
     await axios
       .post("https://api.stilto.io/createclaimurl", {
         sender: currentAccount,
@@ -97,6 +72,7 @@ export default function AddCryptoComp() {
         title,
         message,
         amount,
+        chain,
         claimLink: link,
       })
       .then((response) => {
@@ -121,7 +97,14 @@ export default function AddCryptoComp() {
           </Link>
         </section>
       </section>
-      {!currentAccount && <ConnectWallet />}
+      {!currentAccount && (
+        <button
+          onClick={() => open({ view: "Networks" })}
+          className="w-60 h-14 bg-[#1de9b6] hover:bg-[#00bfa5] text-white text-lg mt-6 rounded-xl uppercase"
+        >
+          Connect Wallet
+        </button>
+      )}
       {currentAccount && (
         <section className="w-full h-screen flex flex-col lg:flex-row lg:justify-evenly items-center lg:items-start bg-[#e0f7fa] text-[#004d40] mt-6">
           <section className="w-full lg:w-2/5 h-60 lg:h-3/4 flex flex-col p-2 rounded-lg shadow-lg bg-white">
@@ -172,12 +155,12 @@ export default function AddCryptoComp() {
                 </section>
               )
             ) : (
-              <section className="text-center break-all mt-4">
+              <section className="text-center break-all mt-4 mx-4">
                 {/*TODO:
                 Add icon that copies to clipboard
                 */}
                 Share this claimable link:{" "}
-                {`https://stilto.io/card/claim?id=${giftId}`}
+                {`https://api.stilto.io/card/claim?id=${giftId}`}
               </section>
             )}
           </section>
