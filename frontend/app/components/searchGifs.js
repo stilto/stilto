@@ -19,6 +19,7 @@ export default function SearchGifs() {
   };
 
   const handleSubmit = async () => {
+    setIsGifsFetched(false);
     document.querySelector("#inputField").value = "";
     fetch(`${API_URI}${inputValue}${parameters}`)
       .then((res) => res.json())
