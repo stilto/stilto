@@ -138,8 +138,8 @@ export default function HomeComp() {
         </section>
         <p className="mb-2 text-gray-500 dark:text-gray-400">
           So far Stilto has been the easiest and most convenient way to send
-          crypto gifts. I'm amazed that so many gift cards are available and any
-          GIF can also be used to surprise my friends!
+          crypto gifts. I&apos;m amazed that so many gift cards are available
+          and any GIF can also be used to surprise my friends!
         </p>
       </section>
 
