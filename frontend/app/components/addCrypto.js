@@ -160,7 +160,7 @@ export default function AddCryptoComp() {
                 Add icon that copies to clipboard
                 */}
                 Share this claimable link:{" "}
-                {`https://api.stilto.io/card/claim?id=${giftId}`}
+                {`https://stilto.io/card/claim?id=${giftId}`}
               </section>
             )}
           </section>
