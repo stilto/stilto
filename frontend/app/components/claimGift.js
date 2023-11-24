@@ -118,9 +118,11 @@ export default function ClaimButton() {
             <button
               onClick={claimLink}
               disabled={linkStatus}
-              className="w-44 h-12 absolute bottom-0 bg-[#1de9b6] hover:bg-[#00bfa5] text-lg rounded-xl flex justify-center items-center"
+              className={`w-44 h-12 absolute bottom-0 ${
+                !linkStatus ? "bg-[#1de9b6] hover:bg-[#00bfa5]" : "bg-[#ec583b]"
+              } text-lg rounded-xl flex justify-center items-center`}
             >
-              CLAIM
+              {!linkStatus ? "CLAIM" : "CLAIMED"}
             </button>
           )}
         </section>
