@@ -45,35 +45,63 @@ export default function AddCryptoComp() {
     }
   };
 
-  const createLink = async () => {
+  // const createLink = async () => {
+  //   setLoadingLink(true);
+  //   if (!signer) throw new Error("Connect wallet first");
+  //   const network = await signer.provider.getNetwork();
+  //   const chainId = network.chainId;
+
+  //   window.signer = signer;
+  //   const createLinkResponse = await peanut.createLink({
+  //     structSigner: { signer },
+  //     linkDetails: {
+  //       chainId: chainId,
+  //       tokenAmount: amount,
+  //       tokenType: 0,
+  //     },
+  //   });
+  //   createClaimUrl(createLinkResponse.link[0], network.name);
+  // };
+
+  const createClaimUrl = async () => {
     setLoadingLink(true);
     if (!signer) throw new Error("Connect wallet first");
     const network = await signer.provider.getNetwork();
     const chainId = network.chainId;
 
     window.signer = signer;
-    const createLinkResponse = await peanut.createLink({
-      structSigner: { signer },
-      linkDetails: {
+
+    /*
+    send to server
+
+    - signer
+    - chainId
+    - amount
+    - currentAccount
+    - chosenGif
+    - chosenCard
+    - title,
+    - message,
+    - amount,
+    - chain,
+
+    */
+    console.log("signer 1: ", { signer });
+    console.log("signer 2: ", signer);
+    console.log("signer 3: ", window.signer);
+    await axios
+      .post("http://localhost:5001/createclaimurl", {
+        signer,
         chainId: chainId,
         tokenAmount: amount,
         tokenType: 0,
-      },
-    });
-    createClaimUrl(createLinkResponse.link[0], network.name);
-  };
-
-  const createClaimUrl = async (link, chain) => {
-    await axios
-      .post("https://api.stilto.io/createclaimurl", {
         sender: currentAccount,
         gif: chosenGif,
         card: chosenCard,
         title,
         message,
         amount,
-        chain,
-        claimLink: link,
+        chain: network.name,
       })
       .then((response) => {
         setGiftId(response.data);
@@ -126,7 +154,7 @@ export default function AddCryptoComp() {
                   className="w-24 h-10 bg-white text-[#004d40] text-right placeholder:text-[#004d40] placeholder:text-sm placeholder:text-left placeholder:pl-2 outline-none border-2 border-[#004d40] rounded-l-lg"
                 />
                 <button
-                  onClick={createLink}
+                  onClick={createClaimUrl}
                   className="w-36 h-10 bg-[#1de9b6] hover:bg-[#00bfa5] text-lg text-[#004d40] ml-4 rounded-r-lg"
                 >
                   Create link

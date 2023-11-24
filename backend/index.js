@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import { peanut } from "@squirrel-labs/peanut-sdk";
 const app = express();
 const port = 5001;
 dotenv.config();
@@ -30,6 +31,16 @@ app.get("/getclaimurl", async (req, res) => {
 
 app.post("/createclaimurl", async (req, res) => {
   const { body } = req;
+
+  const createLinkResponse = await peanut.createLink({
+    structSigner: body.signer,
+    linkDetails: {
+      chainId: body.chainId,
+      tokenAmount: body.amount,
+      tokenType: body.tokenType,
+    },
+  });
+
   const newGift = await prisma.gift.create({
     data: {
       sender: body.sender ? body.sender : "",
@@ -39,7 +50,7 @@ app.post("/createclaimurl", async (req, res) => {
       message: body.message ? body.message : "",
       amount: body.amount,
       chain: body.chain,
-      claimLink: body.claimLink,
+      claimLink: createLinkResponse.link[0],
       claimed: false,
     },
   });
