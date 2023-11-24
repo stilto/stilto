@@ -82,6 +82,10 @@ export default function AddCryptoComp() {
       });
   };
 
+  const copyLink = () => {
+    navigator.clipboard.writeText(`https://stilto.io/card/claim?id=${giftId}`);
+  };
+
   return (
     <section className="min-h-screen flex flex-col items-center bg-[#e0f7fa] text-[#004d40]">
       <section className="w-full h-20 lg:h-12 flex justify-center mt-2">
@@ -156,10 +160,26 @@ export default function AddCryptoComp() {
               )
             ) : (
               <section className="text-center break-all mt-4 mx-4">
-                {/*TODO:
-                Add icon that copies to clipboard
-                */}
-                Share this claimable link:{" "}
+                <p className="flex flex-row justify-center">
+                  Share this claimable link:{" "}
+                  <svg
+                    className="h-6 w-6 text-[#004d40] cursor-pointer"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    strokeWidth="2"
+                    stroke="currentColor"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    onClick={copyLink}
+                  >
+                    {" "}
+                    <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                    <rect x="8" y="8" width="12" height="12" rx="2" />{" "}
+                    <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" />
+                  </svg>{" "}
+                </p>
                 {`https://stilto.io/card/claim?id=${giftId}`}
               </section>
             )}
