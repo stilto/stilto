@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
 import "./globals.css";
-import { Poppins } from "next/font/google";
+import { NextUIProvider } from "@nextui-org/react";
 import { createConfig, WagmiConfig, mainnet, sepolia } from "wagmi";
 import { createWeb3Modal, defaultConfig } from "@web3modal/ethers5/react";
+import { Poppins } from "next/font/google";
 
 import Context from "./utils/context";
 
@@ -35,20 +36,22 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <Context.Provider
-          value={{
-            chosenGif,
-            setChosenGif,
-            chosenCard,
-            setChosenCard,
-            title,
-            setTitle,
-            message,
-            setMessage,
-          }}
-        >
-          <WagmiConfig config={wagmiConfig}>{children}</WagmiConfig>
-        </Context.Provider>
+        <NextUIProvider>
+          <Context.Provider
+            value={{
+              chosenGif,
+              setChosenGif,
+              chosenCard,
+              setChosenCard,
+              title,
+              setTitle,
+              message,
+              setMessage,
+            }}
+          >
+            <WagmiConfig config={wagmiConfig}>{children}</WagmiConfig>
+          </Context.Provider>
+        </NextUIProvider>
       </body>
     </html>
   );

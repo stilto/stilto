@@ -5,9 +5,18 @@ import { ethers } from "ethers";
 import { peanut } from "@squirrel-labs/peanut-sdk";
 import axios from "axios";
 import { useWeb3Modal, useWeb3ModalAccount } from "@web3modal/ethers5/react";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  useDisclosure,
+} from "@nextui-org/react";
 
 export default function ClaimButton() {
   const { open } = useWeb3Modal();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const { chainId, isConnected } = useWeb3ModalAccount();
   const [currentAccount, setCurrentAccount] = useState("");
   const [signer, setSigner] = useState(null);
@@ -84,6 +93,7 @@ export default function ClaimButton() {
     });
     linkDetails(link);
     setGiftClaimed();
+    onOpen();
   };
 
   const linkDetails = async (link) => {
@@ -115,15 +125,49 @@ export default function ClaimButton() {
             </button>
           )}
           {currentAccount && (
-            <button
-              onClick={claimLink}
-              disabled={linkStatus}
-              className={`w-44 h-12 absolute bottom-0 ${
-                !linkStatus ? "bg-[#1de9b6] hover:bg-[#00bfa5]" : "bg-[#ec583b]"
-              } text-lg rounded-xl flex justify-center items-center`}
-            >
-              {!linkStatus ? "CLAIM" : "CLAIMED"}
-            </button>
+            <section>
+              <button
+                onClick={claimLink}
+                disabled={linkStatus}
+                className={`w-44 h-12 lg:absolute lg:bottom-0 ${
+                  !linkStatus
+                    ? "bg-[#1de9b6] hover:bg-[#00bfa5]"
+                    : "bg-[#ec583b]"
+                } text-lg rounded-xl flex justify-center items-center`}
+              >
+                {!linkStatus ? "CLAIM" : "CLAIMED"}
+              </button>
+              <Modal
+                backdrop="blur"
+                size="5xl"
+                isOpen={isOpen}
+                onClose={onClose}
+                className="bg-white rounded-lg"
+              >
+                <ModalContent className="flex content-between text-black">
+                  {(onClose) => (
+                    <section className="flex flex-col py-20">
+                      <ModalHeader className="flex justify-center mb-8">
+                        <h2 className="text-xl">Congratulations!</h2>
+                      </ModalHeader>
+                      <ModalBody className="flex items-center">
+                        <video
+                          autoPlay
+                          muted
+                          loop
+                          className="rounded-lg shadow-lg"
+                        >
+                          <source
+                            src="https://media4.giphy.com/media/P1HOxaZSTcp4k/giphy.mp4?cid=5b5901a5k8mbdmx92tvjq5nd5hhxrddk5v85tgl32r4ik2mq&ep=v1_gifs_search&rid=giphy.mp4&ct=g"
+                            type="video/mp4"
+                          />
+                        </video>
+                      </ModalBody>
+                    </section>
+                  )}
+                </ModalContent>
+              </Modal>
+            </section>
           )}
         </section>
         <section className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center mt-6 lg:mt-0">
