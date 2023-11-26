@@ -6,6 +6,12 @@ import { ethers } from "ethers";
 import { peanut } from "@squirrel-labs/peanut-sdk";
 import axios from "axios";
 import { useWeb3Modal, useWeb3ModalAccount } from "@web3modal/ethers5/react";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  Button,
+} from "@nextui-org/react";
 
 import Context from "../utils/context";
 import ConnectWallet from "./connectWallet";
@@ -162,23 +168,39 @@ export default function AddCryptoComp() {
               <section className="text-center break-all mt-4 mx-4">
                 <p className="flex flex-row justify-center">
                   Share this claimable link:{" "}
-                  <svg
-                    className="h-6 w-6 text-[#004d40] cursor-pointer"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2"
-                    stroke="currentColor"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    onClick={copyLink}
+                  <Popover
+                    placement="right"
+                    className="bg-[#1de9b6] rounded-lg"
                   >
-                    {" "}
-                    <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                    <rect x="8" y="8" width="12" height="12" rx="2" />{" "}
-                    <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" />
-                  </svg>{" "}
+                    <PopoverTrigger>
+                      <Button>
+                        <svg
+                          className="h-6 w-6 text-[#004d40] cursor-pointer"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          strokeWidth="2"
+                          stroke="currentColor"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          onClick={copyLink}
+                        >
+                          {" "}
+                          <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                          <rect x="8" y="8" width="12" height="12" rx="2" />{" "}
+                          <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" />
+                        </svg>{" "}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      <section className="px-1 py-2">
+                        <section className="text-[#004d40] text-small font-bold">
+                          Copied!
+                        </section>
+                      </section>
+                    </PopoverContent>
+                  </Popover>
                 </p>
                 {`https://stilto.io/card/claim?id=${giftId}`}
               </section>
