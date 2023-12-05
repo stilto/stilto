@@ -7,10 +7,14 @@ import { peanut } from "@squirrel-labs/peanut-sdk";
 import axios from "axios";
 import { useWeb3Modal, useWeb3ModalAccount } from "@web3modal/ethers5/react";
 import {
+  Button,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
   Popover,
   PopoverTrigger,
   PopoverContent,
-  Button,
 } from "@nextui-org/react";
 
 import Context from "../utils/context";
@@ -117,12 +121,91 @@ export default function AddCryptoComp() {
       )}
       {currentAccount && (
         <section className="w-full h-screen flex flex-col lg:flex-row lg:justify-evenly items-center lg:items-start bg-[#e0f7fa] text-[#004d40] mt-6">
-          <section className="w-full lg:w-2/5 h-60 lg:h-3/4 flex flex-col p-2 rounded-lg shadow-lg bg-white">
+          <section className="w-full lg:w-2/5 h-96 lg:h-3/4 flex flex-col p-2 rounded-lg shadow-lg bg-white">
             <section className="text-center text-lg mt-6">
               Add amount and click &apos;Create link&apos; to get your claimable
               link.
             </section>
-            <section className="flex justify-between md:justify-evenly items-center mt-8 mb-4">
+            <section className="flex justify-between md:justify-between items-center mt-8 mb-4 md:px-10">
+              <label htmlFor="amount" className="text-lg">
+                <span onClick={() => open({ view: "Networks" })}>
+                  Choose Network:
+                </span>
+              </label>
+              <section className="flex items-center">
+                <Dropdown>
+                  <DropdownTrigger>
+                    <button className="w-36 h-10 flex justify-center items-center bg-[#1de9b6] hover:bg-[#00bfa5] text-lg text-[#004d40] rounded-lg outline-none">
+                      Create link
+                      <svg
+                        className="h-6 w-6 text-[#004d40] cursor-pointer"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        {" "}
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                    </button>
+                    {/* <Button variant="bordered">Open Menu</Button> */}
+                  </DropdownTrigger>
+                  <DropdownMenu
+                    aria-label="Static Actions"
+                    className="bg-[#1de9b6] text-[#004d40] rounded-lg"
+                  >
+                    <DropdownItem key="ethereum" className="hover:bg-[#00bfa5]">
+                      Ethereum
+                    </DropdownItem>
+                    <DropdownItem key="arbitrum" className="hover:bg-[#00bfa5]">
+                      Arbitrum
+                    </DropdownItem>
+                    <DropdownItem
+                      key="avalanche"
+                      className="hover:bg-[#00bfa5]"
+                    >
+                      Avalanche
+                    </DropdownItem>
+                    <DropdownItem key="base" className="hover:bg-[#00bfa5]">
+                      Base
+                    </DropdownItem>
+                    <DropdownItem key="bnb" className="hover:bg-[#00bfa5]">
+                      BNB Smart Chain
+                    </DropdownItem>
+                    <DropdownItem key="linea" className="hover:bg-[#00bfa5]">
+                      Linea Mainnet
+                    </DropdownItem>
+                    <DropdownItem key="mantle" className="hover:bg-[#00bfa5]">
+                      Mantle
+                    </DropdownItem>
+                    <DropdownItem key="op" className="hover:bg-[#00bfa5]">
+                      OP Mainnet
+                    </DropdownItem>
+                    <DropdownItem key="polygon" className="hover:bg-[#00bfa5]">
+                      Polygon
+                    </DropdownItem>
+                    <DropdownItem
+                      key="polygon-mumbai"
+                      className="hover:bg-[#00bfa5]"
+                    >
+                      Polygon Mumbai
+                    </DropdownItem>
+                    <DropdownItem
+                      key="polygon-zkevm"
+                      className="hover:bg-[#00bfa5]"
+                    >
+                      Polygon zkEVM
+                    </DropdownItem>
+                    <DropdownItem key="sepolia" className="hover:bg-[#00bfa5]">
+                      Sepolia
+                    </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </section>
+            </section>
+            <section className="flex justify-between md:justify-between items-center mt-8 mb-4 md:px-10">
               <label htmlFor="amount" className="text-lg">
                 ETH amount to gift:
               </label>
