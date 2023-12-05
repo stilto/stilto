@@ -154,11 +154,8 @@ export default function AddCryptoComp() {
                   </DropdownTrigger>
                   <DropdownMenu
                     aria-label="Static Actions"
-                    className="bg-[#1de9b6] text-[#004d40] rounded-lg"
+                    className="h-80 bg-[#1de9b6] text-[#004d40] rounded-lg overflow-scroll"
                   >
-                    <DropdownItem key="ethereum" className="hover:bg-[#00bfa5]">
-                      Ethereum
-                    </DropdownItem>
                     <DropdownItem key="arbitrum" className="hover:bg-[#00bfa5]">
                       Arbitrum
                     </DropdownItem>
@@ -173,6 +170,9 @@ export default function AddCryptoComp() {
                     </DropdownItem>
                     <DropdownItem key="bnb" className="hover:bg-[#00bfa5]">
                       BNB Smart Chain
+                    </DropdownItem>
+                    <DropdownItem key="ethereum" className="hover:bg-[#00bfa5]">
+                      Ethereum
                     </DropdownItem>
                     <DropdownItem key="linea" className="hover:bg-[#00bfa5]">
                       Linea Mainnet
