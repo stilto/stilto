@@ -29,9 +29,29 @@ export default function AddCryptoComp() {
   const [currentAccount, setCurrentAccount] = useState("");
   const [signer, setSigner] = useState(null);
   const [amount, setAmount] = useState("");
+  const [chosenChain, setChosenChain] = useState("Arbitrum");
   const [giftId, setGiftId] = useState("");
   const [giftLinkReady, setGiftLinkReady] = useState(false);
   const [loadingLink, setLoadingLink] = useState(false);
+
+  // TODO
+  // Save key in setChosenChain
+  // Compare chosenChain with current connected chain
+
+  const items = [
+    { key: "arbitrum", label: "Arbitrum" },
+    { key: "avalanche", label: "Avalanche" },
+    { key: "base", label: "Base" },
+    { key: "bnb", label: "BNB Smart Chain" },
+    { key: "ethereum", label: "Ethereum" },
+    { key: "linea", label: "Linea" },
+    { key: "mantle", label: "Mantle" },
+    { key: "op", label: "OP Mainnet" },
+    { key: "polygon", label: "Polygon" },
+    { key: "polygon-mumbai", label: "Polygon Mumbai" },
+    { key: "polygon-zkevm", label: "Polygon zkEVM" },
+    { key: "sepolia", label: "Sepolia" },
+  ];
 
   useEffect(() => {
     checkIfWalletIsConnected();
@@ -136,7 +156,7 @@ export default function AddCryptoComp() {
                 <Dropdown>
                   <DropdownTrigger>
                     <button className="w-36 h-10 flex justify-center items-center bg-[#1de9b6] hover:bg-[#00bfa5] text-lg text-[#004d40] rounded-lg outline-none">
-                      Create link
+                      {chosenChain}
                       <svg
                         className="h-6 w-6 text-[#004d40] cursor-pointer"
                         viewBox="0 0 24 24"
@@ -154,53 +174,18 @@ export default function AddCryptoComp() {
                   </DropdownTrigger>
                   <DropdownMenu
                     aria-label="Static Actions"
+                    onAction={(key) => alert(key)}
                     className="h-80 bg-[#1de9b6] text-[#004d40] rounded-lg overflow-scroll"
+                    items={items}
                   >
-                    <DropdownItem key="arbitrum" className="hover:bg-[#00bfa5]">
-                      Arbitrum
-                    </DropdownItem>
-                    <DropdownItem
-                      key="avalanche"
-                      className="hover:bg-[#00bfa5]"
-                    >
-                      Avalanche
-                    </DropdownItem>
-                    <DropdownItem key="base" className="hover:bg-[#00bfa5]">
-                      Base
-                    </DropdownItem>
-                    <DropdownItem key="bnb" className="hover:bg-[#00bfa5]">
-                      BNB Smart Chain
-                    </DropdownItem>
-                    <DropdownItem key="ethereum" className="hover:bg-[#00bfa5]">
-                      Ethereum
-                    </DropdownItem>
-                    <DropdownItem key="linea" className="hover:bg-[#00bfa5]">
-                      Linea Mainnet
-                    </DropdownItem>
-                    <DropdownItem key="mantle" className="hover:bg-[#00bfa5]">
-                      Mantle
-                    </DropdownItem>
-                    <DropdownItem key="op" className="hover:bg-[#00bfa5]">
-                      OP Mainnet
-                    </DropdownItem>
-                    <DropdownItem key="polygon" className="hover:bg-[#00bfa5]">
-                      Polygon
-                    </DropdownItem>
-                    <DropdownItem
-                      key="polygon-mumbai"
-                      className="hover:bg-[#00bfa5]"
-                    >
-                      Polygon Mumbai
-                    </DropdownItem>
-                    <DropdownItem
-                      key="polygon-zkevm"
-                      className="hover:bg-[#00bfa5]"
-                    >
-                      Polygon zkEVM
-                    </DropdownItem>
-                    <DropdownItem key="sepolia" className="hover:bg-[#00bfa5]">
-                      Sepolia
-                    </DropdownItem>
+                    {(item) => (
+                      <DropdownItem
+                        key={item.key}
+                        className="hover:bg-[#00bfa5]"
+                      >
+                        {item.label}
+                      </DropdownItem>
+                    )}
                   </DropdownMenu>
                 </Dropdown>
               </section>
