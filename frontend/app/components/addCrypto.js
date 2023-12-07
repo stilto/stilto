@@ -35,22 +35,21 @@ export default function AddCryptoComp() {
   const [loadingLink, setLoadingLink] = useState(false);
 
   // TODO
-  // Save key in setChosenChain
   // Compare chosenChain with current connected chain
 
   const items = [
-    { key: "arbitrum", label: "Arbitrum" },
-    { key: "avalanche", label: "Avalanche" },
-    { key: "base", label: "Base" },
-    { key: "bnb", label: "BNB Smart Chain" },
-    { key: "ethereum", label: "Ethereum" },
-    { key: "linea", label: "Linea" },
-    { key: "mantle", label: "Mantle" },
-    { key: "op", label: "OP Mainnet" },
-    { key: "polygon", label: "Polygon" },
-    { key: "polygon-mumbai", label: "Polygon Mumbai" },
-    { key: "polygon-zkevm", label: "Polygon zkEVM" },
-    { key: "sepolia", label: "Sepolia" },
+    { key: "42161", label: "Arbitrum" },
+    { key: "43114", label: "Avalanche" },
+    { key: "8453", label: "Base" },
+    { key: "56", label: "BNB Smart Chain" },
+    { key: "1", label: "Ethereum" },
+    { key: "59144", label: "Linea" },
+    { key: "5000", label: "Mantle" },
+    { key: "10", label: "OP Mainnet" },
+    { key: "137", label: "Polygon" },
+    { key: "80001", label: "Polygon Mumbai" },
+    { key: "1101", label: "Polygon zkEVM" },
+    { key: "11155111", label: "Sepolia" },
   ];
 
   useEffect(() => {
@@ -155,7 +154,7 @@ export default function AddCryptoComp() {
               <section className="flex items-center">
                 <Dropdown>
                   <DropdownTrigger>
-                    <button className="w-36 h-10 flex justify-center items-center bg-[#1de9b6] hover:bg-[#00bfa5] text-lg text-[#004d40] rounded-lg outline-none">
+                    <button className="w-56 h-10 flex justify-center items-center bg-[#1de9b6] hover:bg-[#00bfa5] text-lg text-[#004d40] rounded-lg outline-none">
                       {chosenChain}
                       <svg
                         className="h-6 w-6 text-[#004d40] cursor-pointer"
@@ -174,13 +173,13 @@ export default function AddCryptoComp() {
                   </DropdownTrigger>
                   <DropdownMenu
                     aria-label="Static Actions"
-                    onAction={(key) => alert(key)}
                     className="h-80 bg-[#1de9b6] text-[#004d40] rounded-lg overflow-scroll"
                     items={items}
                   >
                     {(item) => (
                       <DropdownItem
                         key={item.key}
+                        onClick={() => setChosenChain(item.label)}
                         className="hover:bg-[#00bfa5]"
                       >
                         {item.label}
