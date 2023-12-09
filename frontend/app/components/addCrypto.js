@@ -29,7 +29,10 @@ export default function AddCryptoComp() {
   const [currentAccount, setCurrentAccount] = useState("");
   const [signer, setSigner] = useState(null);
   const [amount, setAmount] = useState("");
-  const [chosenChain, setChosenChain] = useState("Arbitrum");
+  const [chosenChain, setChosenChain] = useState({
+    id: 42161,
+    chain: "Arbitrum",
+  });
   const [giftId, setGiftId] = useState("");
   const [giftLinkReady, setGiftLinkReady] = useState(false);
   const [loadingLink, setLoadingLink] = useState(false);
@@ -38,18 +41,18 @@ export default function AddCryptoComp() {
   // Compare chosenChain with current connected chain
 
   const items = [
-    { key: "42161", label: "Arbitrum" },
-    { key: "43114", label: "Avalanche" },
-    { key: "8453", label: "Base" },
-    { key: "56", label: "BNB Smart Chain" },
-    { key: "1", label: "Ethereum" },
-    { key: "59144", label: "Linea" },
-    { key: "5000", label: "Mantle" },
-    { key: "10", label: "OP Mainnet" },
-    { key: "137", label: "Polygon" },
-    { key: "80001", label: "Polygon Mumbai" },
-    { key: "1101", label: "Polygon zkEVM" },
-    { key: "11155111", label: "Sepolia" },
+    { key: 42161, label: "Arbitrum" },
+    { key: 43114, label: "Avalanche" },
+    { key: 8453, label: "Base" },
+    { key: 56, label: "BNB Smart Chain" },
+    { key: 1, label: "Ethereum" },
+    { key: 59144, label: "Linea" },
+    { key: 5000, label: "Mantle" },
+    { key: 10, label: "OP Mainnet" },
+    { key: 137, label: "Polygon" },
+    { key: 80001, label: "Polygon Mumbai" },
+    { key: 1101, label: "Polygon zkEVM" },
+    { key: 11155111, label: "Sepolia" },
   ];
 
   useEffect(() => {
@@ -146,16 +149,12 @@ export default function AddCryptoComp() {
               link.
             </section>
             <section className="flex justify-between md:justify-between items-center mt-8 mb-4 md:px-10">
-              <label htmlFor="amount" className="text-lg">
-                <span onClick={() => open({ view: "Networks" })}>
-                  Choose Network:
-                </span>
-              </label>
+              <span className="text-lg">Choose Network:</span>
               <section className="flex items-center">
                 <Dropdown>
                   <DropdownTrigger>
                     <button className="w-56 h-10 flex justify-center items-center bg-[#1de9b6] hover:bg-[#00bfa5] text-lg text-[#004d40] rounded-lg outline-none">
-                      {chosenChain}
+                      {chosenChain.chain}
                       <svg
                         className="h-6 w-6 text-[#004d40] cursor-pointer"
                         viewBox="0 0 24 24"
@@ -179,7 +178,9 @@ export default function AddCryptoComp() {
                     {(item) => (
                       <DropdownItem
                         key={item.key}
-                        onClick={() => setChosenChain(item.label)}
+                        onClick={() =>
+                          setChosenChain({ id: item.key, chain: item.label })
+                        }
                         className="hover:bg-[#00bfa5]"
                       >
                         {item.label}
@@ -189,6 +190,18 @@ export default function AddCryptoComp() {
                 </Dropdown>
               </section>
             </section>
+            {chainId && chosenChain.id !== chainId && (
+              <section className="flex justify-center items-center mt-4 md:px-10">
+                <section
+                  className="flex items-center bg-red-500 py-4 px-8 text-[#e0f7fa] rounded-full cursor-pointer"
+                  role="alert"
+                >
+                  <span className="font-semibold text-left flex-auto">
+                    Wrong network. Connect to: {chosenChain.chain}
+                  </span>
+                </section>
+              </section>
+            )}
             <section className="flex justify-between md:justify-between items-center mt-8 mb-4 md:px-10">
               <label htmlFor="amount" className="text-lg">
                 ETH amount to gift:
