@@ -5,7 +5,8 @@ import Image from "next/image";
 import { ethers } from "ethers";
 import { peanut } from "@squirrel-labs/peanut-sdk";
 import axios from "axios";
-import { useWeb3Modal, useWeb3ModalAccount } from "@web3modal/ethers5/react";
+import { useAccount, useNetwork } from "wagmi";
+import { useWeb3Modal } from "@web3modal/wagmi/react";
 import {
   Button,
   Dropdown,
@@ -24,7 +25,8 @@ import ConnectWallet from "./connectWallet";
 export default function AddCryptoComp() {
   const { chosenGif, chosenCard, title, message } = useContext(Context);
   const { open } = useWeb3Modal();
-  const { chainId, isConnected } = useWeb3ModalAccount();
+  const { isConnected } = useAccount();
+  const { chain } = useNetwork();
 
   const [currentAccount, setCurrentAccount] = useState("");
   const [signer, setSigner] = useState(null);
@@ -36,9 +38,6 @@ export default function AddCryptoComp() {
   const [giftId, setGiftId] = useState("");
   const [giftLinkReady, setGiftLinkReady] = useState(false);
   const [loadingLink, setLoadingLink] = useState(false);
-
-  // TODO
-  // Compare chosenChain with current connected chain
 
   const items = [
     { key: 42161, label: "Arbitrum" },
@@ -190,16 +189,14 @@ export default function AddCryptoComp() {
                 </Dropdown>
               </section>
             </section>
-            {chainId && chosenChain.id !== chainId && (
+            {chosenChain.id !== chain.id && (
               <section className="flex justify-center items-center mt-4 md:px-10">
-                <section
-                  className="flex items-center bg-red-500 py-4 px-8 text-[#e0f7fa] rounded-full cursor-pointer"
-                  role="alert"
+                <Button
+                  className=" bg-red-500 py-4 px-8 text-[#e0f7fa] font-semibold rounded-full"
+                  onClick={() => open({ view: "Networks" })}
                 >
-                  <span className="font-semibold text-left flex-auto">
-                    Wrong network. Connect to: {chosenChain.chain}
-                  </span>
-                </section>
+                  Wrong network. Change to: {chosenChain.chain}
+                </Button>
               </section>
             )}
             <section className="flex justify-between md:justify-between items-center mt-8 mb-4 md:px-10">
