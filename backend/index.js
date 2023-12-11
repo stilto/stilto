@@ -39,6 +39,7 @@ app.post("/createclaimurl", async (req, res) => {
       message: body.message ? body.message : "",
       amount: body.amount,
       chain: body.chain,
+      chainId: body.chainId,
       claimLink: body.claimLink,
       claimed: false,
     },
