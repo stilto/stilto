@@ -17,7 +17,7 @@ import {
   polygonZkEvm,
   sepolia,
 } from "wagmi/chains";
-import { createWeb3Modal, defaultConfig } from "@web3modal/ethers5/react";
+import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
 import { Poppins } from "next/font/google";
 
 import Context from "./utils/context";
@@ -38,21 +38,18 @@ const chains = [
   avalanche,
   base,
   bsc,
-  linea,
-  mantle,
+  // linea,
+  // mantle,
   optimism,
   polygon,
-  polygonMumbai,
-  polygonZkEvm,
+  // polygonMumbai,
+  // polygonZkEvm,
   sepolia,
 ];
-const wagmiConfig = createConfig({ chains, projectId, metadata });
 
-createWeb3Modal({
-  ethersConfig: defaultConfig({ metadata }),
-  chains,
-  projectId,
-});
+const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
+
+createWeb3Modal({ wagmiConfig, projectId, chains });
 
 export default function RootLayout({ children }) {
   const [chosenGif, setChosenGif] = useState("");
