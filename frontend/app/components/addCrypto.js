@@ -45,12 +45,12 @@ export default function AddCryptoComp() {
     { key: 8453, label: "Base" },
     { key: 56, label: "BNB Smart Chain" },
     { key: 1, label: "Ethereum" },
-    { key: 59144, label: "Linea" },
-    { key: 5000, label: "Mantle" },
+    // { key: 59144, label: "Linea" },
+    // { key: 5000, label: "Mantle" },
     { key: 10, label: "OP Mainnet" },
     { key: 137, label: "Polygon" },
-    { key: 80001, label: "Polygon Mumbai" },
-    { key: 1101, label: "Polygon zkEVM" },
+    // { key: 80001, label: "Polygon Mumbai" },
+    // { key: 1101, label: "Polygon zkEVM" },
     { key: 11155111, label: "Sepolia" },
   ];
 
@@ -104,6 +104,7 @@ export default function AddCryptoComp() {
         message,
         amount,
         chain,
+        chainId: chosenChain.id.toString(),
         claimLink: link,
       })
       .then((response) => {
