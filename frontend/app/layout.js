@@ -2,8 +2,22 @@
 import { useState } from "react";
 import "./globals.css";
 import { NextUIProvider } from "@nextui-org/react";
-import { createConfig, WagmiConfig, mainnet, sepolia } from "wagmi";
-import { createWeb3Modal, defaultConfig } from "@web3modal/ethers5/react";
+import { createConfig, WagmiConfig } from "wagmi";
+import {
+  mainnet,
+  arbitrum,
+  avalanche,
+  base,
+  bsc,
+  linea,
+  mantle,
+  optimism,
+  polygon,
+  polygonMumbai,
+  polygonZkEvm,
+  sepolia,
+} from "wagmi/chains";
+import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
 import { Poppins } from "next/font/google";
 
 import Context from "./utils/context";
@@ -18,14 +32,24 @@ const metadata = {
   url: "https://stilto.io",
 };
 
-const chains = [mainnet, sepolia];
-const wagmiConfig = createConfig({ chains, projectId, metadata });
+const chains = [
+  mainnet,
+  arbitrum,
+  avalanche,
+  base,
+  bsc,
+  // linea,
+  // mantle,
+  optimism,
+  polygon,
+  // polygonMumbai,
+  // polygonZkEvm,
+  sepolia,
+];
 
-createWeb3Modal({
-  ethersConfig: defaultConfig({ metadata }),
-  chains,
-  projectId,
-});
+const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
+
+createWeb3Modal({ wagmiConfig, projectId, chains });
 
 export default function RootLayout({ children }) {
   const [chosenGif, setChosenGif] = useState("");

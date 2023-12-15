@@ -5,12 +5,17 @@ import Image from "next/image";
 import { ethers } from "ethers";
 import { peanut } from "@squirrel-labs/peanut-sdk";
 import axios from "axios";
-import { useWeb3Modal, useWeb3ModalAccount } from "@web3modal/ethers5/react";
+import { useAccount, useNetwork } from "wagmi";
+import { useWeb3Modal } from "@web3modal/wagmi/react";
 import {
+  Button,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
   Popover,
   PopoverTrigger,
   PopoverContent,
-  Button,
 } from "@nextui-org/react";
 
 import Context from "../utils/context";
@@ -20,14 +25,34 @@ import ConnectWallet from "./connectWallet";
 export default function AddCryptoComp() {
   const { chosenGif, chosenCard, title, message } = useContext(Context);
   const { open } = useWeb3Modal();
-  const { chainId, isConnected } = useWeb3ModalAccount();
+  const { isConnected } = useAccount();
+  const { chain } = useNetwork();
 
   const [currentAccount, setCurrentAccount] = useState("");
   const [signer, setSigner] = useState(null);
   const [amount, setAmount] = useState("");
+  const [chosenChain, setChosenChain] = useState({
+    id: 42161,
+    chain: "Arbitrum",
+  });
   const [giftId, setGiftId] = useState("");
   const [giftLinkReady, setGiftLinkReady] = useState(false);
   const [loadingLink, setLoadingLink] = useState(false);
+
+  const items = [
+    { key: 42161, label: "Arbitrum" },
+    { key: 43114, label: "Avalanche" },
+    { key: 8453, label: "Base" },
+    { key: 56, label: "BNB Smart Chain" },
+    { key: 1, label: "Ethereum" },
+    // { key: 59144, label: "Linea" },
+    // { key: 5000, label: "Mantle" },
+    { key: 10, label: "OP Mainnet" },
+    { key: 137, label: "Polygon" },
+    // { key: 80001, label: "Polygon Mumbai" },
+    // { key: 1101, label: "Polygon zkEVM" },
+    { key: 11155111, label: "Sepolia" },
+  ];
 
   useEffect(() => {
     checkIfWalletIsConnected();
@@ -79,6 +104,7 @@ export default function AddCryptoComp() {
         message,
         amount,
         chain,
+        chainId: chosenChain.id.toString(),
         claimLink: link,
       })
       .then((response) => {
@@ -117,12 +143,64 @@ export default function AddCryptoComp() {
       )}
       {currentAccount && (
         <section className="w-full h-screen flex flex-col lg:flex-row lg:justify-evenly items-center lg:items-start bg-[#e0f7fa] text-[#004d40] mt-6">
-          <section className="w-full lg:w-2/5 h-60 lg:h-3/4 flex flex-col p-2 rounded-lg shadow-lg bg-white">
+          <section className="w-full lg:w-2/5 h-96 lg:h-3/4 flex flex-col p-2 rounded-lg shadow-lg bg-white">
             <section className="text-center text-lg mt-6">
               Add amount and click &apos;Create link&apos; to get your claimable
               link.
             </section>
-            <section className="flex justify-between md:justify-evenly items-center mt-8 mb-4">
+            <section className="flex justify-between md:justify-between items-center mt-8 mb-4 md:px-10">
+              <span className="text-lg">Choose Network:</span>
+              <section className="flex items-center">
+                <Dropdown>
+                  <DropdownTrigger>
+                    <button className="w-56 h-10 flex justify-center items-center bg-[#1de9b6] hover:bg-[#00bfa5] text-lg text-[#004d40] rounded-lg outline-none">
+                      {chosenChain.chain}
+                      <svg
+                        className="h-6 w-6 text-[#004d40] cursor-pointer"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        {" "}
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                    </button>
+                    {/* <Button variant="bordered">Open Menu</Button> */}
+                  </DropdownTrigger>
+                  <DropdownMenu
+                    aria-label="Static Actions"
+                    className="h-80 bg-[#1de9b6] text-[#004d40] rounded-lg overflow-scroll"
+                    items={items}
+                  >
+                    {(item) => (
+                      <DropdownItem
+                        key={item.key}
+                        onClick={() =>
+                          setChosenChain({ id: item.key, chain: item.label })
+                        }
+                        className="hover:bg-[#00bfa5]"
+                      >
+                        {item.label}
+                      </DropdownItem>
+                    )}
+                  </DropdownMenu>
+                </Dropdown>
+              </section>
+            </section>
+            {chosenChain.id !== chain.id && (
+              <section className="flex justify-center items-center mt-4 md:px-10">
+                <Button
+                  className=" bg-red-500 py-4 px-8 text-[#e0f7fa] font-semibold rounded-full"
+                  onClick={() => open({ view: "Networks" })}
+                >
+                  Wrong network. Change to: {chosenChain.chain}
+                </Button>
+              </section>
+            )}
+            <section className="flex justify-between md:justify-between items-center mt-8 mb-4 md:px-10">
               <label htmlFor="amount" className="text-lg">
                 ETH amount to gift:
               </label>
