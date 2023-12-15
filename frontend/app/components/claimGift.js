@@ -4,8 +4,10 @@ import Image from "next/image";
 import { ethers } from "ethers";
 import { peanut } from "@squirrel-labs/peanut-sdk";
 import axios from "axios";
-import { useWeb3Modal, useWeb3ModalAccount } from "@web3modal/ethers5/react";
+import { useAccount, useNetwork } from "wagmi";
+import { useWeb3Modal } from "@web3modal/wagmi/react";
 import {
+  Button,
   Modal,
   ModalContent,
   ModalHeader,
@@ -15,9 +17,10 @@ import {
 
 export default function ClaimButton() {
   const { open } = useWeb3Modal();
+  const { isConnected } = useAccount();
+  const { chain } = useNetwork();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { chainId, isConnected } = useWeb3ModalAccount();
   const [currentAccount, setCurrentAccount] = useState("");
   const [signer, setSigner] = useState(null);
   const [link, setLink] = useState("");
@@ -29,6 +32,7 @@ export default function ClaimButton() {
   const [giftMessage, setGiftMessage] = useState("");
   const [giftAmount, setGiftAmount] = useState("");
   const [giftChain, setGiftChain] = useState("");
+  const [giftChainId, setGiftChainId] = useState(0);
 
   useEffect(() => {
     checkIfWalletIsConnected();
@@ -49,6 +53,7 @@ export default function ClaimButton() {
           setGiftMessage(response.data[0].message);
           setGiftAmount(response.data[0].amount);
           setGiftChain(response.data[0].chain);
+          setGiftChainId(Number(response.data[0].chainId));
           setLinkStatus(response.data[0].claimed);
           linkDetails(response.data[0].claimLink);
         });
@@ -103,7 +108,7 @@ export default function ClaimButton() {
 
   return (
     <section className="min-h-screen flex flex-col items-center bg-[#e0f7fa] text-[#004d40] py-10">
-      <section className="w-full lg:w-2/3 flex flex-col lg:flex-row bg-white rounded-lg shadow-lg p-6 md:p-12 mb-6">
+      <section className="w-full lg:w-4/5 xl:w-2/3 flex flex-col lg:flex-row bg-white p-6 md:p-12 lg:p-8 mb-6 rounded-lg shadow-lg">
         <section className="w-full lg:w-1/2 relative flex flex-col items-center lg:items-start lg:pr-4 text-center lg:text-left break-all">
           {giftTitle && (
             <h1 className="w-full text-xl font-semibold text-center mb-2">
@@ -116,6 +121,16 @@ export default function ClaimButton() {
           <h2 className="mb-4">From: {giftSender}</h2>
           {giftAmount && <p className="mb-4">Amount: {giftAmount} ETH</p>}
           {giftAmount && <p className="mb-4">Chain: {giftChain}</p>}
+          {giftChainId !== chain.id && (
+            <section>
+              <Button
+                className=" bg-red-500 mb-4 py-4 px-8 text-[#e0f7fa] font-semibold rounded-full"
+                onClick={() => open({ view: "Networks" })}
+              >
+                Wrong network. Change to: {giftChain}
+              </Button>
+            </section>
+          )}
           {!currentAccount && (
             <button
               onClick={() => open({ view: "Networks" })}
@@ -170,14 +185,9 @@ export default function ClaimButton() {
             </section>
           )}
         </section>
-        <section className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center mt-6 lg:mt-0">
+        <section className="w-full lg:w-2/3 h-full flex justify-center lg:justify-end items-center mt-6 lg:mt-0">
           {giftCardOrGif && (
-            <video
-              autoPlay
-              muted
-              loop
-              className="w-full h-full rounded-lg shadow-lg"
-            >
+            <video autoPlay muted loop className="w-full rounded-lg shadow-lg">
               <source src={giftCardOrGif} type="video/mp4" />
             </video>
           )}
