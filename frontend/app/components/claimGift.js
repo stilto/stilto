@@ -36,6 +36,7 @@ export default function ClaimButton() {
 
   useEffect(() => {
     checkIfWalletIsConnected();
+    getClaimUrl();
   }, [isConnected]);
 
   const checkIfWalletIsConnected = async () => {
@@ -54,8 +55,6 @@ export default function ClaimButton() {
     } else {
       console.log("No authorized account found");
     }
-
-    getClaimUrl();
   };
 
   async function getClaimUrl() {
