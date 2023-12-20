@@ -36,6 +36,30 @@ export default function ClaimButton() {
 
   useEffect(() => {
     checkIfWalletIsConnected();
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    async function getClaimUrl() {
+      await axios
+        .get("https://api.stilto.io/getclaimurl", {
+          params: {
+            id: urlParams.get("id"),
+          },
+        })
+        .then((response) => {
+          setLink(response.data[0].claimLink);
+          setGiftSender(response.data[0].sender);
+          setGiftCardOrGif(response.data[0].gif);
+          setGiftTitle(response.data[0].title);
+          setGiftMessage(response.data[0].message);
+          setGiftAmount(response.data[0].amount);
+          setGiftChain(response.data[0].chain);
+          setGiftChainId(Number(response.data[0].chainId));
+          setLinkStatus(response.data[0].claimed);
+          linkDetails(response.data[0].claimLink);
+        });
+    }
+
     getClaimUrl();
   }, [isConnected]);
 
@@ -56,30 +80,6 @@ export default function ClaimButton() {
       console.log("No authorized account found");
     }
   };
-
-  async function getClaimUrl() {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-
-    await axios
-      .get("https://api.stilto.io/getclaimurl", {
-        params: {
-          id: urlParams.get("id"),
-        },
-      })
-      .then((response) => {
-        setLink(response.data[0].claimLink);
-        setGiftSender(response.data[0].sender);
-        setGiftCardOrGif(response.data[0].gif);
-        setGiftTitle(response.data[0].title);
-        setGiftMessage(response.data[0].message);
-        setGiftAmount(response.data[0].amount);
-        setGiftChain(response.data[0].chain);
-        setGiftChainId(Number(response.data[0].chainId));
-        setLinkStatus(response.data[0].claimed);
-        linkDetails(response.data[0].claimLink);
-      });
-  }
 
   async function setGiftClaimed() {
     const queryString = window.location.search;
