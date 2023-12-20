@@ -95,6 +95,7 @@ export default function AddCryptoComp() {
   };
 
   const createClaimUrl = async (link, chain) => {
+    // if (!chain.id) return;
     await axios
       .post("https://api.stilto.io/createclaimurl", {
         sender: currentAccount,
@@ -190,7 +191,7 @@ export default function AddCryptoComp() {
                 </Dropdown>
               </section>
             </section>
-            {chain.id && chosenChain.id !== chain.id && (
+            {chain && chain.id && chosenChain.id !== chain.id && (
               <section className="flex justify-center items-center mt-4 md:px-10">
                 <Button
                   className=" bg-red-500 py-4 px-8 text-[#e0f7fa] font-semibold rounded-full"

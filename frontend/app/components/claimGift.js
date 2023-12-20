@@ -36,39 +36,7 @@ export default function ClaimButton() {
 
   useEffect(() => {
     checkIfWalletIsConnected();
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    async function getClaimUrl() {
-      await axios
-        .get("https://api.stilto.io/getclaimurl", {
-          params: {
-            id: urlParams.get("id"),
-          },
-        })
-        .then((response) => {
-          setLink(response.data[0].claimLink);
-          setGiftSender(response.data[0].sender);
-          setGiftCardOrGif(response.data[0].gif);
-          setGiftTitle(response.data[0].title);
-          setGiftMessage(response.data[0].message);
-          setGiftAmount(response.data[0].amount);
-          setGiftChain(response.data[0].chain);
-          setGiftChainId(Number(response.data[0].chainId));
-          setLinkStatus(response.data[0].claimed);
-          linkDetails(response.data[0].claimLink);
-        });
-    }
-
-    getClaimUrl();
   }, [isConnected]);
-
-  async function setGiftClaimed() {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    await axios.post("https://api.stilto.io/setgiftclaimed", {
-      id: urlParams.get("id"),
-    });
-  }
 
   const checkIfWalletIsConnected = async () => {
     const accounts = await window.ethereum.request({ method: "eth_accounts" });
@@ -86,7 +54,41 @@ export default function ClaimButton() {
     } else {
       console.log("No authorized account found");
     }
+
+    getClaimUrl();
   };
+
+  async function getClaimUrl() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    await axios
+      .get("https://api.stilto.io/getclaimurl", {
+        params: {
+          id: urlParams.get("id"),
+        },
+      })
+      .then((response) => {
+        setLink(response.data[0].claimLink);
+        setGiftSender(response.data[0].sender);
+        setGiftCardOrGif(response.data[0].gif);
+        setGiftTitle(response.data[0].title);
+        setGiftMessage(response.data[0].message);
+        setGiftAmount(response.data[0].amount);
+        setGiftChain(response.data[0].chain);
+        setGiftChainId(Number(response.data[0].chainId));
+        setLinkStatus(response.data[0].claimed);
+        linkDetails(response.data[0].claimLink);
+      });
+  }
+
+  async function setGiftClaimed() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    await axios.post("https://api.stilto.io/setgiftclaimed", {
+      id: urlParams.get("id"),
+    });
+  }
 
   const claimLink = async () => {
     if (!signer || !link) return;
@@ -121,16 +123,6 @@ export default function ClaimButton() {
           <h2 className="mb-4">From: {giftSender}</h2>
           {giftAmount && <p className="mb-4">Amount: {giftAmount} ETH</p>}
           {giftAmount && <p className="mb-4">Chain: {giftChain}</p>}
-          {giftChainId !== chain.id && (
-            <section>
-              <Button
-                className=" bg-red-500 mb-4 py-4 px-8 text-[#e0f7fa] font-semibold rounded-full"
-                onClick={() => open({ view: "Networks" })}
-              >
-                Wrong network. Change to: {giftChain}
-              </Button>
-            </section>
-          )}
           {!currentAccount && (
             <button
               onClick={() => open({ view: "Networks" })}
@@ -141,6 +133,17 @@ export default function ClaimButton() {
           )}
           {currentAccount && (
             <section>
+              {chain && chain.id && giftChainId !== chain.id && (
+                <section>
+                  {console.log("chhh", chain)}
+                  <Button
+                    className=" bg-red-500 mb-4 py-4 px-8 text-[#e0f7fa] font-semibold rounded-full"
+                    onClick={() => open({ view: "Networks" })}
+                  >
+                    Wrong network. Change to: {giftChain}
+                  </Button>
+                </section>
+              )}
               <button
                 onClick={claimLink}
                 disabled={linkStatus}
