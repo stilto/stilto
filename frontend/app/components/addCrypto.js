@@ -32,8 +32,8 @@ export default function AddCryptoComp() {
   const [signer, setSigner] = useState(null);
   const [amount, setAmount] = useState("");
   const [chosenChain, setChosenChain] = useState({
-    id: 42161,
-    chain: "Arbitrum",
+    id: 11155111,
+    chain: "Sepolia",
   });
   const [giftId, setGiftId] = useState("");
   const [giftLinkReady, setGiftLinkReady] = useState(false);
@@ -190,7 +190,7 @@ export default function AddCryptoComp() {
                 </Dropdown>
               </section>
             </section>
-            {chosenChain.id !== chain.id && (
+            {chain.id && chosenChain.id !== chain.id && (
               <section className="flex justify-center items-center mt-4 md:px-10">
                 <Button
                   className=" bg-red-500 py-4 px-8 text-[#e0f7fa] font-semibold rounded-full"
