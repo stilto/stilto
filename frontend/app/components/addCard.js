@@ -1,7 +1,10 @@
 "use client";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { ethers } from "ethers";
+import { useAccount, useNetwork } from "wagmi";
+import { useWeb3Modal } from "@web3modal/wagmi/react";
 
 import Context from "../utils/context";
 import SearchGifs from "./searchGifs";
@@ -90,8 +93,36 @@ const cards = [
 
 export default function AddCardComp() {
   const { chosenCard, setChosenCard } = useContext(Context);
+  const { open } = useWeb3Modal();
+  const { isConnected } = useAccount();
+  const { chain } = useNetwork();
+  const [currentAccount, setCurrentAccount] = useState("");
+  const [signer, setSigner] = useState(null);
+
   const [cardTab, setCardTab] = useState(false);
   const [gifTab, setGifTab] = useState(true);
+
+  useEffect(() => {
+    checkIfWalletIsConnected();
+  }, [isConnected]);
+
+  const checkIfWalletIsConnected = async () => {
+    const accounts = await window.ethereum.request({ method: "eth_accounts" });
+    if (accounts.length !== 0) {
+      const provider = new ethers.providers.Web3Provider(
+        window.ethereum,
+        "any"
+      );
+      const signer = await provider.getSigner();
+      const account = accounts[0];
+      setCurrentAccount(account);
+      setSigner(signer);
+      //   setIsConnected(true);
+      //   setChainId((await provider.getNetwork()).chainId);
+    } else {
+      console.log("No authorized account found");
+    }
+  };
 
   const switchToGif = async () => {
     if (!gifTab) {
@@ -116,7 +147,7 @@ export default function AddCardComp() {
       <section className="w-full h-20 lg:h-12 flex justify-center mt-2">
         <section className="w-full lg:w-1/2 h-20 lg:h-12 flex justify-evenly items-center text-xl text-center">
           <Link href="/add-card" className="text-[#1de9b6]">
-            <span className="font-semibold">1.</span> Choose card/gif
+            <span className="font-semibold">1.</span> Choose gift type
           </Link>
           <Link href="/add-message">
             <span className="font-semibold">2.</span> Add your message
@@ -126,69 +157,82 @@ export default function AddCardComp() {
           </Link>
         </section>
       </section>
-      <section className="w-3/4 sm:w-1/2 md:w-1/3 h-10 flex justify-center items-center bg-[#004d40] mt-6 rounded-full outline-none">
-        <section
-          className={`${
-            cardTab
-              ? "bg-[#1de9b6] text-[#004d40] transition duration-300 ease-in-out"
-              : "text-white"
-          } flex justify-center items-center w-1/2 h-full rounded-full outline-none cursor-pointer`}
-          id="card"
-          onClick={switchToCard}
+      {!currentAccount && (
+        <button
+          onClick={() => open({ view: "Networks" })}
+          className="w-60 h-14 bg-[#1de9b6] hover:bg-[#00bfa5] text-white text-lg mt-6 rounded-xl uppercase"
         >
-          CARD
-        </section>
-        <section
-          className={`${
-            gifTab
-              ? "bg-[#1de9b6] text-[#004d40] transition duration-150 ease-in-out"
-              : "text-white"
-          } flex justify-center items-center w-1/2 h-full rounded-full outline-none cursor-pointer`}
-          id="gif"
-          onClick={switchToGif}
-        >
-          GIF
-        </section>
-      </section>
-      {cardTab ? (
-        <section className="w-full">
-          <section className="flex justify-center mt-6">
+          Connect Wallet
+        </button>
+      )}
+      {currentAccount && (
+        <section className="w-full flex flex-col items-center">
+          <section className="w-3/4 sm:w-1/2 md:w-1/3 h-10 flex justify-center items-center bg-[#004d40] mt-6 rounded-full outline-none">
             <section
-              className="py-4 px-8 bg-red-500 items-center text-[#e0f7fa] rounded-full flex"
-              role="alert"
+              className={`${
+                cardTab
+                  ? "bg-[#1de9b6] text-[#004d40] transition duration-300 ease-in-out"
+                  : "text-white"
+              } flex justify-center items-center w-1/2 h-full rounded-full outline-none cursor-pointer`}
+              id="card"
+              onClick={switchToCard}
             >
-              <span className="font-semibold text-left flex-auto">
-                Cards coming soon, use GIFs
-              </span>
+              CARD
+            </section>
+            <section
+              className={`${
+                gifTab
+                  ? "bg-[#1de9b6] text-[#004d40] transition duration-150 ease-in-out"
+                  : "text-white"
+              } flex justify-center items-center w-1/2 h-full rounded-full outline-none cursor-pointer`}
+              id="gif"
+              onClick={switchToGif}
+            >
+              GIF
             </section>
           </section>
-          <section className="w-full grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-10 justify-items-center my-14">
-            {cards.map((i, key) => {
-              return (
+          {cardTab && (
+            <section className="w-full">
+              <section className="flex justify-center mt-6">
                 <section
-                  key={key}
-                  className="w-4/6 flex flex-col items-center py-4 border-2 rounded-lg shadow-lg bg-white"
+                  className="py-4 px-8 bg-red-500 items-center text-[#e0f7fa] rounded-full flex"
+                  role="alert"
                 >
-                  <Image src={i} alt="card" width={150} height={100} />
-                  <Link
-                    href="/add-message"
-                    className="w-full flex justify-center mt-4"
-                  >
-                    <button
-                      className="w-full lg:w-36 h-14 md:h-10 flex justify-center items-center bg-[#1de9b6] hover:bg-[#00bfa5] text-[#004d40] border border-[#1de9b6] hover:border-[#00bfa5] rounded-full"
-                      onClick={() => setChosenCard(i)}
-                    >
-                      Use this card
-                    </button>
-                  </Link>
+                  <span className="font-semibold text-left flex-auto">
+                    Cards coming soon, use GIFs
+                  </span>
                 </section>
-              );
-            })}
-          </section>
-        </section>
-      ) : (
-        <section className="w-full flex justify-center lg:justify-end my-10">
-          <SearchGifs />
+              </section>
+              <section className="w-full grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-10 justify-items-center my-14">
+                {cards.map((i, key) => {
+                  return (
+                    <section
+                      key={key}
+                      className="w-4/6 flex flex-col items-center py-4 border-2 rounded-lg shadow-lg bg-white"
+                    >
+                      <Image src={i} alt="card" width={150} height={100} />
+                      <Link
+                        href="/add-message"
+                        className="w-full flex justify-center mt-4"
+                      >
+                        <button
+                          className="w-full lg:w-36 h-14 md:h-10 flex justify-center items-center bg-[#1de9b6] hover:bg-[#00bfa5] text-[#004d40] border border-[#1de9b6] hover:border-[#00bfa5] rounded-full"
+                          onClick={() => setChosenCard(i)}
+                        >
+                          Use this card
+                        </button>
+                      </Link>
+                    </section>
+                  );
+                })}
+              </section>
+            </section>
+          )}
+          {gifTab && (
+            <section className="w-full flex justify-center lg:justify-end my-10">
+              <SearchGifs />
+            </section>
+          )}
         </section>
       )}
     </section>
