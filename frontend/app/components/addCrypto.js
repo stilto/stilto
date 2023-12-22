@@ -124,7 +124,7 @@ export default function AddCryptoComp() {
       <section className="w-full h-20 lg:h-12 flex justify-center mt-2">
         <section className="w-full lg:w-1/2 h-20 lg:h-12 flex justify-evenly items-center text-xl text-center">
           <Link href="/add-card">
-            <span className="font-semibold">1.</span> Choose card/gif
+            <span className="font-semibold">1.</span> Choose gift type
           </Link>
           <Link href="/add-message">
             <span className="font-semibold">2.</span> Add your message
