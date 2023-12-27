@@ -101,6 +101,7 @@ export default function AddCardComp() {
 
   const [cardTab, setCardTab] = useState(false);
   const [gifTab, setGifTab] = useState(true);
+  const [nftTab, setNftTab] = useState(false);
 
   useEffect(() => {
     checkIfWalletIsConnected();
@@ -128,6 +129,7 @@ export default function AddCardComp() {
     if (!gifTab) {
       setGifTab(true);
       setCardTab(false);
+      setNftTab(false);
     }
   };
 
@@ -135,6 +137,15 @@ export default function AddCardComp() {
     if (!cardTab) {
       setCardTab(true);
       setGifTab(false);
+      setNftTab(false);
+    }
+  };
+
+  const switchToNft = () => {
+    if (!cardTab) {
+      setCardTab(false);
+      setGifTab(false);
+      setNftTab(true);
     }
   };
 
@@ -189,6 +200,17 @@ export default function AddCardComp() {
               onClick={switchToGif}
             >
               GIF
+            </section>
+            <section
+              className={`${
+                nftTab
+                  ? "bg-[#1de9b6] text-[#004d40] transition duration-150 ease-in-out"
+                  : "text-white"
+              } flex justify-center items-center w-1/2 h-full rounded-full outline-none cursor-pointer`}
+              id="gif"
+              onClick={switchToNft}
+            >
+              NFT
             </section>
           </section>
           {cardTab && (
