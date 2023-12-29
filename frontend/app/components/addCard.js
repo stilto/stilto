@@ -8,6 +8,7 @@ import { useWeb3Modal } from "@web3modal/wagmi/react";
 
 import Context from "../utils/context";
 import SearchGifs from "./searchGifs";
+import AddNft from "./addNft";
 
 import Card1 from "../assets/cards/1.png";
 import Card2 from "../assets/cards/2.png";
@@ -253,6 +254,11 @@ export default function AddCardComp() {
           {gifTab && (
             <section className="w-full flex justify-center lg:justify-end my-10">
               <SearchGifs />
+            </section>
+          )}
+          {nftTab && (
+            <section className="w-full flex justify-center lg:justify-end my-10">
+              <AddNft />
             </section>
           )}
         </section>
