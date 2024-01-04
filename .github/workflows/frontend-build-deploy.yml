@@ -35,6 +35,9 @@ jobs:
           context: ./frontend
           push: true
           tags: ${{ env.IMAGE }}
+          build-args: |
+            NEXT_PUBLIC_WEB3MODAL_PROJECT_ID=${{ env.NEXT_PUBLIC_WEB3MODAL_PROJECT_ID }}
+            NEXT_PUBLIC_GIPHY_API_KEY=${{ secrets.NEXT_PUBLIC_GIPHY_API_KEY }}
       - name: Add SSH key
         run: |
           sleep 10s
