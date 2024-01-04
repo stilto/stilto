@@ -12,6 +12,10 @@ const prisma = new PrismaClient();
 app.use(cors());
 app.use(express.json());
 
+app.get("/health", (req, res) => {
+  return res.send("OK");
+});
+
 app.get("/getclaimurl", async (req, res) => {
   try {
     const { query } = req;
