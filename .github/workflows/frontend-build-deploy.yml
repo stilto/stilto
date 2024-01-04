@@ -55,8 +55,6 @@ jobs:
             ssh -p $PORT $HOST "docker service update \
               --with-registry-auth --force \
               --image ${{ env.IMAGE }} \
-              --env-add NEXT_PUBLIC_WEB3MODAL_PROJECT_ID=${{ env.NEXT_PUBLIC_WEB3MODAL_PROJECT_ID }} \
-              --env-add NEXT_PUBLIC_GIPHY_API_KEY=${{ env.NEXT_PUBLIC_GIPHY_API_KEY }} \
               $SERVICE"
           else
             echo "Creating service $SERVICE"
@@ -73,14 +71,11 @@ jobs:
               --health-retries 3 \
               --health-timeout 3s \
               --network web \
-              --network regres_db \
               --label traefik.enable=true \
               --label $DOMAIN_LABEL \
               --label traefik.http.routers.$SERVICE.entrypoints=https \
               --label traefik.http.routers.$SERVICE.tls=true \
               --label traefik.http.routers.$SERVICE.service=$SERVICE \
               --label traefik.http.services.$SERVICE.loadbalancer.server.port=$CONTAINER_PORT \
-              --env NEXT_PUBLIC_WEB3MODAL_PROJECT_ID=${{ env.NEXT_PUBLIC_WEB3MODAL_PROJECT_ID }} \
-              --env NEXT_PUBLIC_GIPHY_API_KEY=${{ env.NEXT_PUBLIC_GIPHY_API_KEY }} \
               $IMAGE"
           fi
