@@ -1,0 +1,82 @@
+name: Backend Build and Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    env:
+      SERVICE: stilto_backend
+      DOMAIN: api.stilto.io
+      IMAGE: dh.topg.systems/stilto/stilto_backend:${{ github.run_number }}
+      REPLICAS: 1
+      CONTAINER_PORT: 5001
+      HOST: ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+      PORT: ${{ secrets.SSH_PORT }}
+      HEALTH_PATH: /health
+      # APP ENV
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      MORALIS_API_KEY: ${{ secrets.MORALIS_API_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Docker Login
+        uses: docker/login-action@v3
+        with:
+          registry: dh.topg.systems
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
+      - name: Build and Push
+        uses: docker/build-push-action@v5.1.0
+        with:
+          file: ./backend/Dockerfile
+          context: ./backend
+          push: true
+          tags: ${{ env.IMAGE }}
+      - name: Add SSH key
+        run: |
+          sleep 10s
+          mkdir -p ~/.ssh/
+          ssh-keyscan -p $PORT -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+      - name: Deploy service
+        env:
+          DOMAIN_LABEL: traefik.http.routers.${{ env.SERVICE }}.rule=Host\(\`${{ env.DOMAIN }}\`\)
+          HEALTH_URL: http://localhost:${{ env.CONTAINER_PORT }}${{ env.HEALTH_PATH }}
+        run: |
+          if ssh -p $PORT $HOST "docker service ls --format '{{.Name}}' | grep -q $SERVICE"; then
+            echo "Updating service $SERVICE"
+            ssh -p $PORT $HOST "docker service update \
+              --with-registry-auth --force \
+              --image ${{ env.IMAGE }} \
+              --env-add DATABASE_URL='${{ env.DATABASE_URL }}' \
+              --env-add MORALIS_API_KEY='${{ env.MORALIS_API_KEY }}' \
+              $SERVICE"
+          else
+            echo "Creating service $SERVICE"
+            ssh -p $PORT $HOST "docker service create \
+              --with-registry-auth \
+              --detach \
+              --name $SERVICE \
+              --replicas $REPLICAS \
+              --update-delay 10s \
+              --update-parallelism 1 \
+              --update-order start-first \
+              --health-cmd 'curl -f $HEALTH_URL || exit 1' \
+              --health-interval 5s \
+              --health-retries 3 \
+              --health-timeout 3s \
+              --network web \
+              --label traefik.enable=true \
+              --label $DOMAIN_LABEL \
+              --label traefik.http.routers.$SERVICE.entrypoints=https \
+              --label traefik.http.routers.$SERVICE.tls=true \
+              --label traefik.http.routers.$SERVICE.service=$SERVICE \
+              --label traefik.http.services.$SERVICE.loadbalancer.server.port=$CONTAINER_PORT \
+              --env DATABASE_URL='${{ env.DATABASE_URL }}' \
+              --env MORALIS_API_KEY='${{ env.MORALIS_API_KEY }}' \
+              $IMAGE"
+          fi
