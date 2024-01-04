@@ -1,5 +1,7 @@
 FROM node:18-slim
 
+RUN apt-get update && apt-get install -y curl
+
 ARG NEXT_PUBLIC_WEB3MODAL_PROJECT_ID
 ARG NEXT_PUBLIC_GIPHY_API_KEY
 
