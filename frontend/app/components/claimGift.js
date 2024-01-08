@@ -119,7 +119,9 @@ export default function ClaimButton() {
           {giftMessage && (
             <p className="w-full text-center mb-4">{giftMessage}</p>
           )}
-          <h2 className="mb-4">From: {giftSender}</h2>
+          <h2 className="mb-4">
+            From: {`${giftSender.slice(0, 6)}...${giftSender.slice(36)}`}
+          </h2>
           {giftAmount && <p className="mb-4">Amount: {giftAmount} ETH</p>}
           {giftAmount && <p className="mb-4">Chain: {giftChain}</p>}
           {!currentAccount && (
