@@ -39,7 +39,7 @@ export default function Hero() {
             message, and send crypto to a friend who can claim it through a
             link.
           </p>
-          <Link href="/add-card" className="mt-6">
+          <Link href="/add-card" className="w-44 mt-6">
             <button className="w-44 h-12 bg-[#1de9b6] hover:bg-[#00bfa5] text-lg rounded-xl">
               Start Sending
             </button>
