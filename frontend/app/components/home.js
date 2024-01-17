@@ -11,17 +11,22 @@ import avalanche from "../assets/chains/avalanche.svg";
 import base from "../assets/chains/base.svg";
 import bsc from "../assets/chains/bsc.svg";
 import mainnet from "../assets/chains/mainnet.svg";
-import Polygon from "../assets/chains/polygon.svg";
+import polygon from "../assets/chains/polygon.svg";
 import optimism from "../assets/chains/optimism.svg";
 
 const logos = [
-  <Image src={arbitrum} alt="Arbitrum" className="w-16 h-16" />,
-  <Image src={avalanche} alt="Avalanche" className="w-16 h-16" />,
-  <Image src={base} alt="Base" className="w-16 h-16" />,
-  <Image src={bsc} alt="BSC" className="w-16 h-16" />,
-  <Image src={mainnet} alt="Mainnet" className="w-16 h-16" />,
-  <Image src={Polygon} alt="Polygon" className="w-16 h-16" />,
-  <Image src={optimism} alt="Optimism" className="w-16 h-16" />,
+  <Image src={arbitrum} alt="Arbitrum" key={arbitrum} className="w-16 h-16" />,
+  <Image
+    src={avalanche}
+    alt="Avalanche"
+    key={avalanche}
+    className="w-16 h-16"
+  />,
+  <Image src={base} alt="Base" key={base} className="w-16 h-16" />,
+  <Image src={bsc} alt="BSC" key={bsc} className="w-16 h-16" />,
+  <Image src={mainnet} alt="Mainnet" key={mainnet} className="w-16 h-16" />,
+  <Image src={polygon} alt="Polygon" key={polygon} className="w-16 h-16" />,
+  <Image src={optimism} alt="Optimism" key={optimism} className="w-16 h-16" />,
 ];
 
 export default function HomeComp() {
