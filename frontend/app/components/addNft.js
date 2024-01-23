@@ -53,7 +53,6 @@ export default function AddNft() {
   ];
 
   useEffect(() => {
-    console.log("chain :)", chain);
     checkIfWalletIsConnected();
 
     async function getWalletNfts() {
