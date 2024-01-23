@@ -69,7 +69,7 @@ export default function AddNft() {
     if (isConnected) {
       getWalletNfts();
     }
-  }, [isConnected]);
+  }, [isConnected, chain]);
 
   const checkIfWalletIsConnected = async () => {
     const accounts = await window.ethereum.request({ method: "eth_accounts" });
