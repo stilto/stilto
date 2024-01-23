@@ -29,8 +29,8 @@ export default function AddNft() {
   const [currentAccount, setCurrentAccount] = useState("");
   const [signer, setSigner] = useState(null);
   const [chosenChain, setChosenChain] = useState({
-    id: 11155111,
-    chain: "Sepolia",
+    id: chain.id,
+    chain: chain.name,
   });
   const [giftId, setGiftId] = useState("");
   const [giftLinkReady, setGiftLinkReady] = useState(false);
@@ -53,11 +53,12 @@ export default function AddNft() {
   ];
 
   useEffect(() => {
+    console.log("chain :)", chain);
     checkIfWalletIsConnected();
 
     async function getWalletNfts() {
       await axios
-        .get("https://api.stilto.io/getwalletnfts", {
+        .get("http://localhost:5001/getwalletnfts", {
           params: { address, chain: chain.id },
         })
         .then((response) => {
