@@ -57,7 +57,7 @@ export default function AddNft() {
 
     async function getWalletNfts() {
       await axios
-        .get("http://localhost:5001/getwalletnfts", {
+        .get("https://api.stilto.io/getwalletnfts", {
           params: { address, chain: chain.id },
         })
         .then((response) => {
@@ -106,10 +106,7 @@ export default function AddNft() {
         tokenId,
       },
     });
-    console.log("tokenADD", tokenAddress);
-    console.log("tokenIDDD", tokenId);
-    console.log("createLinkResponse here!!!", createLinkResponse);
-    createClaimUrl(createLinkResponse, network.name);
+    createClaimUrl(createLinkResponse.link[0], network.name);
   };
 
   const createClaimUrl = async (link, chain) => {
@@ -138,7 +135,7 @@ export default function AddNft() {
 
   return (
     <section className="w-full flex flex-col justify-center text-[#004d40]">
-      <section className="flex justify-center items-center my-4">
+      <section className="flex flex-col justify-center items-center my-4">
         {!giftLinkReady ? (
           loadingLink && (
             <section className="text-center mt-4">
@@ -289,14 +286,12 @@ export default function AddNft() {
                 )}...${nft.token_address.slice(38)}`}</p>
                 <p className="uppercase font-bold">{nft.token_id}</p>
               </CardFooter>
-              <Link href="/add-message" className="mb-4">
-                <button
-                  className="w-36 h-10 bg-[#1de9b6] hover:bg-[#00bfa5] text-[#004d40] border border-[#1de9b6] hover:border-[#00bfa5] rounded-full"
-                  onClick={() => createLink(nft.token_address, nft.token_id)}
-                >
-                  Send NFT
-                </button>
-              </Link>
+              <button
+                className="w-36 h-10 bg-[#1de9b6] hover:bg-[#00bfa5] text-[#004d40] border border-[#1de9b6] hover:border-[#00bfa5] rounded-full"
+                onClick={() => createLink(nft.token_address, nft.token_id)}
+              >
+                Send NFT
+              </button>
             </Card>
           ))}
         </section>
