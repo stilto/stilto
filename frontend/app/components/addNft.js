@@ -87,7 +87,7 @@ export default function AddNft() {
     }
   };
 
-  const createLink = async (tokenAddress, tokenId) => {
+  const createLink = async (tokenAddress, tokenId, nftImage) => {
     setLoadingLink(true);
     if (!signer) throw new Error("Connect wallet first");
     const network = await signer.provider.getNetwork();
@@ -106,15 +106,16 @@ export default function AddNft() {
         tokenId,
       },
     });
-    createClaimUrl(createLinkResponse.link[0], network.name);
+    createClaimUrl(createLinkResponse.link[0], network.name, nftImage);
   };
 
-  const createClaimUrl = async (link, chain) => {
+  const createClaimUrl = async (link, chain, nftImage) => {
     await axios
       .post("https://api.stilto.io/createclaimurl", {
         sender: currentAccount,
         gif: chosenGif,
         card: chosenCard,
+        nftImage,
         title,
         message,
         amount: "",
@@ -253,7 +254,13 @@ export default function AddNft() {
             <Card
               className="md:w-1/5 h-[26rem] flex flex-col justify-between items-center mb-10 md:mr-2"
               key={i}
-              onClick={() => createLink(nft.token_address, nft.token_id)}
+              onClick={() =>
+                createLink(
+                  nft.token_address,
+                  nft.token_id,
+                  nft.media ? nft.media?.media_collection?.medium.url : ""
+                )
+              }
             >
               {nft.media?.media_collection ? (
                 <Image
