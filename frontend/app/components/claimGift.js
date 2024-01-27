@@ -110,7 +110,7 @@ export default function ClaimButton() {
   return (
     <section className="min-h-screen flex flex-col items-center bg-[#e0f7fa] text-[#004d40] py-10">
       <section className="w-full lg:w-4/5 xl:w-2/3 flex flex-col lg:flex-row bg-white p-6 md:p-12 lg:p-8 mb-6 rounded-lg shadow-lg">
-        <section className="w-full lg:w-1/2 relative flex flex-col items-center lg:items-start lg:pr-4 text-center lg:text-left break-all">
+        <section className="w-full lg:w-1/2 min-h-1/2 relative flex flex-col items-center lg:items-start lg:pr-4 text-center lg:text-left break-all">
           {giftTitle && (
             <h1 className="w-full text-xl font-semibold text-center mb-2">
               {giftTitle}
