@@ -55,6 +55,7 @@ app.post("/createclaimurl", async (req, res) => {
       sender: body.sender ? body.sender : "",
       gif: body.gif ? body.gif : "",
       card: body.card ? body.card : "",
+      nftImage: body.nftImage ? body.nftImage : "",
       title: body.title ? body.title : "",
       message: body.message ? body.message : "",
       amount: body.amount,
