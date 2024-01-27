@@ -254,13 +254,6 @@ export default function AddNft() {
             <Card
               className="md:w-1/5 h-[26rem] flex flex-col justify-between items-center mb-10 md:mr-2"
               key={i}
-              onClick={() =>
-                createLink(
-                  nft.token_address,
-                  nft.token_id,
-                  nft.media ? nft.media?.media_collection?.medium.url : ""
-                )
-              }
             >
               {nft.media?.media_collection ? (
                 <Image
@@ -295,7 +288,13 @@ export default function AddNft() {
               </CardFooter>
               <button
                 className="w-36 h-10 bg-[#1de9b6] hover:bg-[#00bfa5] text-[#004d40] border border-[#1de9b6] hover:border-[#00bfa5] rounded-full"
-                onClick={() => createLink(nft.token_address, nft.token_id)}
+                onClick={() =>
+                  createLink(
+                    nft.token_address,
+                    nft.token_id,
+                    nft.media ? nft.media?.media_collection?.medium.url : ""
+                  )
+                }
               >
                 Send NFT
               </button>
