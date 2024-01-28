@@ -28,6 +28,7 @@ export default function ClaimButton() {
 
   const [giftSender, setGiftSender] = useState("");
   const [giftCardOrGif, setGiftCardOrGif] = useState("");
+  const [giftNftImage, setGiftNftImage] = useState("");
   const [giftTitle, setGiftTitle] = useState("");
   const [giftMessage, setGiftMessage] = useState("");
   const [giftAmount, setGiftAmount] = useState("");
@@ -47,9 +48,11 @@ export default function ClaimButton() {
           },
         })
         .then((response) => {
+          console.log("res", response.data[0]);
           setLink(response.data[0].claimLink);
           setGiftSender(response.data[0].sender);
           setGiftCardOrGif(response.data[0].gif);
+          setGiftNftImage(response.data[0].nftImage);
           setGiftTitle(response.data[0].title);
           setGiftMessage(response.data[0].message);
           setGiftAmount(response.data[0].amount);
@@ -192,6 +195,17 @@ export default function ClaimButton() {
             <video autoPlay muted loop className="w-full rounded-lg shadow-lg">
               <source src={giftCardOrGif} type="video/mp4" />
             </video>
+          )}
+        </section>
+        <section className="w-full lg:w-2/3 h-full flex justify-center lg:justify-end items-center mt-6 lg:mt-0">
+          {giftNftImage && (
+            <Image
+              alt="NFT image"
+              className="h-64 overflow-hidden rounded-xl"
+              src={giftNftImage}
+              width={270}
+              height={270}
+            />
           )}
         </section>
       </section>
