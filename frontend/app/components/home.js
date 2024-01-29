@@ -6,10 +6,36 @@ const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 import GC from "../assets/gc.png";
 import Wallet from "../assets/wallet.png";
 import Send from "../assets/send.png";
+import arbitrum from "../assets/chains/arbitrum.svg";
+import avalanche from "../assets/chains/avalanche.svg";
+import base from "../assets/chains/base.svg";
+import bsc from "../assets/chains/bsc.svg";
+import mainnet from "../assets/chains/mainnet.svg";
+import polygon from "../assets/chains/polygon.svg";
+import optimism from "../assets/chains/optimism.svg";
+
+const logos = [
+  <Image src={arbitrum} alt="Arbitrum" key={arbitrum} className="w-16 h-16" />,
+  <Image
+    src={avalanche}
+    alt="Avalanche"
+    key={avalanche}
+    className="w-16 h-16"
+  />,
+  <Image src={base} alt="Base" key={base} className="w-16 h-16" />,
+  <Image src={bsc} alt="BSC" key={bsc} className="w-16 h-16" />,
+  <Image src={mainnet} alt="Mainnet" key={mainnet} className="w-16 h-16" />,
+  <Image src={polygon} alt="Polygon" key={polygon} className="w-16 h-16" />,
+  <Image src={optimism} alt="Optimism" key={optimism} className="w-16 h-16" />,
+];
 
 export default function HomeComp() {
   return (
-    <section className="w-full flex flex-col items-center text-gray-900 mt-10">
+    <section className="w-full flex flex-col items-center text-gray-900 mt-6">
+      <h1 className={`${poppins.className} text-3xl font-semibold`}>
+        SUPPORTED NETWORKS
+      </h1>
+      <InfiniteSlider />
       <h1 className={`${poppins.className} text-3xl font-semibold`}>
         HOW IT WORKS
       </h1>
@@ -151,3 +177,29 @@ export default function HomeComp() {
     </section>
   );
 }
+
+const InfiniteSlider = () => {
+  return (
+    <section className="relative flex overflow-x-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
+      <section className="flex items-center py-12 animate-marquee whitespace-nowrap">
+        {logos.map((logo, i) => {
+          return (
+            <span className="text-4xl mx-4" key={i}>
+              {logo}
+            </span>
+          );
+        })}
+      </section>
+
+      <section className="flex items-center absolute top-0 py-12 animate-marquee2 whitespace-nowrap">
+        {logos.map((logo, i) => {
+          return (
+            <span className="text-4xl mx-4" key={i}>
+              {logo}
+            </span>
+          );
+        })}
+      </section>
+    </section>
+  );
+};

@@ -16,6 +16,7 @@ import {
   polygonMumbai,
   polygonZkEvm,
   sepolia,
+  zkSync,
 } from "wagmi/chains";
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
 import { Poppins } from "next/font/google";
@@ -45,6 +46,7 @@ const chains = [
   // polygonMumbai,
   // polygonZkEvm,
   sepolia,
+  // zkSync,
 ];
 
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });

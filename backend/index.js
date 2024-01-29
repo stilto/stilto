@@ -15,6 +15,10 @@ app.use(express.json());
 
 const MORALIS_API_KEY = process.env.MORALIS_API_KEY;
 
+app.get("/health", (req, res) => {
+  return res.send("OK");
+});
+
 app.get("/getclaimurl", async (req, res) => {
   try {
     const { query } = req;
