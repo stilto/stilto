@@ -69,7 +69,7 @@ export default function AddNft() {
     if (isConnected) {
       getWalletNfts();
     }
-  }, [isConnected, chain]);
+  }, [isConnected, chain, address]);
 
   const checkIfWalletIsConnected = async () => {
     const accounts = await window.ethereum.request({ method: "eth_accounts" });
@@ -252,13 +252,13 @@ export default function AddNft() {
         <section className="w-full flex flex-wrap flex-col md:flex-row justify-center items-center mt-8">
           {walletNfts.map((nft, i) => (
             <Card
-              className="md:w-1/5 h-[26rem] flex flex-col justify-between items-center mb-10 md:mr-2"
+              className="md:w-1/5 h-[30rem] flex flex-col justify-between items-center mb-10 md:mr-2"
               key={i}
             >
               {nft.media?.media_collection ? (
                 <Image
                   alt="NFT image"
-                  className="h-64 overflow-hidden rounded-xl"
+                  className="h-64 mt-4 overflow-hidden rounded-xl"
                   src={`${
                     nft.media && nft.media?.media_collection?.medium.url
                   }`}
@@ -287,7 +287,7 @@ export default function AddNft() {
                 <p className="uppercase font-bold">{nft.token_id}</p>
               </CardFooter>
               <button
-                className="w-36 h-10 bg-[#1de9b6] hover:bg-[#00bfa5] text-[#004d40] border border-[#1de9b6] hover:border-[#00bfa5] rounded-full"
+                className="w-36 h-10 bg-[#1de9b6] hover:bg-[#00bfa5] text-[#004d40] mb-2 border border-[#1de9b6] hover:border-[#00bfa5] rounded-full"
                 onClick={() =>
                   createLink(
                     nft.token_address,
