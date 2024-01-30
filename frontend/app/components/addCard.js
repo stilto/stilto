@@ -8,6 +8,7 @@ import { useWeb3Modal } from "@web3modal/wagmi/react";
 
 import Context from "../utils/context";
 import SearchGifs from "./searchGifs";
+import AddNft from "./addNft";
 
 import Card1 from "../assets/cards/1.png";
 import Card2 from "../assets/cards/2.png";
@@ -101,6 +102,7 @@ export default function AddCardComp() {
 
   const [cardTab, setCardTab] = useState(false);
   const [gifTab, setGifTab] = useState(true);
+  const [nftTab, setNftTab] = useState(false);
 
   useEffect(() => {
     checkIfWalletIsConnected();
@@ -128,6 +130,7 @@ export default function AddCardComp() {
     if (!gifTab) {
       setGifTab(true);
       setCardTab(false);
+      setNftTab(false);
     }
   };
 
@@ -135,6 +138,15 @@ export default function AddCardComp() {
     if (!cardTab) {
       setCardTab(true);
       setGifTab(false);
+      setNftTab(false);
+    }
+  };
+
+  const switchToNft = () => {
+    if (!cardTab) {
+      setCardTab(false);
+      setGifTab(false);
+      setNftTab(true);
     }
   };
 
@@ -190,6 +202,17 @@ export default function AddCardComp() {
             >
               GIF
             </section>
+            <section
+              className={`${
+                nftTab
+                  ? "bg-[#1de9b6] text-[#004d40] transition duration-150 ease-in-out"
+                  : "text-white"
+              } flex justify-center items-center w-1/2 h-full rounded-full outline-none cursor-pointer`}
+              id="gif"
+              onClick={switchToNft}
+            >
+              NFT
+            </section>
           </section>
           {cardTab && (
             <section className="w-full">
@@ -231,6 +254,11 @@ export default function AddCardComp() {
           {gifTab && (
             <section className="w-full flex justify-center lg:justify-end my-10">
               <SearchGifs />
+            </section>
+          )}
+          {nftTab && (
+            <section className="w-full flex justify-center lg:justify-end my-10">
+              <AddNft />
             </section>
           )}
         </section>

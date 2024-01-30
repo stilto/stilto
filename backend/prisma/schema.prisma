@@ -15,6 +15,7 @@ model Gift {
   sender    String    
   gif       String?
   card      String?
+  nftImage  String?
   title     String?
   message   String?
   amount    String

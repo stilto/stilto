@@ -56,6 +56,7 @@ createWeb3Modal({ wagmiConfig, projectId, chains });
 export default function RootLayout({ children }) {
   const [chosenGif, setChosenGif] = useState("");
   const [chosenCard, setChosenCard] = useState("");
+  const [chosenNft, setChosenNft] = useState("");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
 
@@ -69,6 +70,8 @@ export default function RootLayout({ children }) {
               setChosenGif,
               chosenCard,
               setChosenCard,
+              chosenNft,
+              setChosenNft,
               title,
               setTitle,
               message,
