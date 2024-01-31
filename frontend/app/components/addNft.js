@@ -61,7 +61,6 @@ export default function AddNft() {
           params: { address, chain: chain.id },
         })
         .then((response) => {
-          console.log("nfts here", response.data.result);
           setWalletNfts(response.data.result);
         });
     }

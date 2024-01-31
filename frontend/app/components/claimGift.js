@@ -49,7 +49,6 @@ export default function ClaimButton() {
           },
         })
         .then((response) => {
-          console.log("res", response.data[0]);
           setLink(response.data[0].claimLink);
           setGiftSender(response.data[0].sender);
           setGiftCardOrGif(response.data[0].gif);
@@ -142,7 +141,6 @@ export default function ClaimButton() {
             <section>
               {chain && chain.id && giftChainId !== chain.id && (
                 <section>
-                  {console.log("chhh", chain)}
                   <Button
                     className=" bg-red-500 mb-4 py-4 px-8 text-[#e0f7fa] font-semibold rounded-full"
                     onClick={() => open({ view: "Networks" })}
