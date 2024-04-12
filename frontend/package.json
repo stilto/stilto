@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.2.9",
+    "@rainbow-me/rainbowkit": "^2.0.5",
     "@squirrel-labs/peanut-sdk": "^0.4.25",
+    "@tanstack/react-query": "^5.29.2",
     "@web3modal/wagmi": "^4.1.6",
     "autoprefixer": "10.4.19",
     "axios": "^1.6.2",
