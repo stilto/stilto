@@ -2,9 +2,9 @@
 import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ethers } from "ethers";
-import { useAccount, useNetwork } from "wagmi";
-import { useWeb3Modal } from "@web3modal/wagmi/react";
+import { useAccount } from "wagmi";
+
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 import Context from "../utils/context";
 import SearchGifs from "./searchGifs";
@@ -94,37 +94,20 @@ const cards = [
 
 export default function AddCardComp() {
   const { chosenCard, setChosenCard } = useContext(Context);
-  const { open } = useWeb3Modal();
   const { isConnected } = useAccount();
-  const { chain } = useNetwork();
-  const [currentAccount, setCurrentAccount] = useState("");
-  const [signer, setSigner] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState("false");
 
   const [cardTab, setCardTab] = useState(false);
   const [gifTab, setGifTab] = useState(true);
   const [nftTab, setNftTab] = useState(false);
 
   useEffect(() => {
-    checkIfWalletIsConnected();
-  }, [isConnected]);
-
-  const checkIfWalletIsConnected = async () => {
-    const accounts = await window.ethereum.request({ method: "eth_accounts" });
-    if (accounts.length !== 0) {
-      const provider = new ethers.providers.Web3Provider(
-        window.ethereum,
-        "any"
-      );
-      const signer = await provider.getSigner();
-      const account = accounts[0];
-      setCurrentAccount(account);
-      setSigner(signer);
-      //   setIsConnected(true);
-      //   setChainId((await provider.getNetwork()).chainId);
+    if (!isConnected) {
+      setIsLoggedIn(false);
     } else {
-      console.log("No authorized account found");
+      setIsLoggedIn(true);
     }
-  };
+  }, [isConnected]);
 
   const switchToGif = async () => {
     if (!gifTab) {
@@ -169,15 +152,12 @@ export default function AddCardComp() {
           </Link>
         </section>
       </section>
-      {!currentAccount && (
-        <button
-          onClick={() => open({ view: "Networks" })}
-          className="w-60 h-14 bg-[#1de9b6] hover:bg-[#00bfa5] text-white text-lg mt-6 rounded-xl uppercase"
-        >
-          Connect Wallet
-        </button>
+      {!isLoggedIn && (
+        <section className="mt-8">
+          <ConnectButton />
+        </section>
       )}
-      {currentAccount && (
+      {isLoggedIn && (
         <section className="w-full flex flex-col items-center">
           <section className="w-3/4 sm:w-1/2 md:w-1/3 h-10 flex justify-center items-center bg-[#004d40] mt-6 rounded-full outline-none">
             <section
