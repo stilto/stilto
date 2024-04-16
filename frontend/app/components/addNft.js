@@ -5,8 +5,8 @@ import { Card, CardFooter, Image } from "@nextui-org/react";
 import { ethers } from "ethers";
 import { peanut } from "@squirrel-labs/peanut-sdk";
 import axios from "axios";
-import { useAccount, useNetwork } from "wagmi";
-import { useWeb3Modal } from "@web3modal/wagmi/react";
+import { useAccount, useChainId, useChains, useSwitchChain } from "wagmi";
+// import { useWeb3Modal } from "@web3modal/wagmi/react";
 
 import {
   Button,
@@ -20,17 +20,25 @@ import {
 } from "@nextui-org/react";
 
 import Context from "../utils/context";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export default function AddNft() {
   const { chosenGif, chosenCard, title, message } = useContext(Context);
-  const { open } = useWeb3Modal();
+  // const { open } = useWeb3Modal();
   const { address, isConnected } = useAccount();
-  const { chain } = useNetwork();
+  const [isLoggedIn, setIsLoggedIn] = useState("false");
+  // const { chain } = useNetwork();
+  const connectedChainId = useChainId();
+  // const chains = useChains();
+  const { chains, switchChain } = useSwitchChain();
   const [currentAccount, setCurrentAccount] = useState("");
   const [signer, setSigner] = useState(null);
+  const { name: connectedChainName } = chains.find(
+    ({ id }) => id === connectedChainId
+  ) || { name: "Unknown Network" };
   const [chosenChain, setChosenChain] = useState({
-    id: chain.id,
-    chain: chain.name,
+    id: connectedChainId,
+    chain: connectedChainName,
   });
   const [giftId, setGiftId] = useState("");
   const [giftLinkReady, setGiftLinkReady] = useState(false);
@@ -53,38 +61,57 @@ export default function AddNft() {
   ];
 
   useEffect(() => {
-    checkIfWalletIsConnected();
-
-    async function getWalletNfts() {
-      await axios
-        .get("https://api.stilto.io/getwalletnfts", {
-          params: { address, chain: chain.id },
-        })
-        .then((response) => {
-          setWalletNfts(response.data.result);
-        });
-    }
-
-    if (isConnected) {
-      getWalletNfts();
-    }
-  }, [isConnected, chain, address]);
-
-  const checkIfWalletIsConnected = async () => {
-    const accounts = await window.ethereum.request({ method: "eth_accounts" });
-    if (accounts.length !== 0) {
-      const provider = new ethers.providers.Web3Provider(
-        window.ethereum,
-        "any"
-      );
-      const signer = await provider.getSigner();
-      const account = accounts[0];
-      setCurrentAccount(account);
-      setSigner(signer);
+    if (!isConnected) {
+      setIsLoggedIn(false);
     } else {
-      console.log("No authorized account found");
+      async function getWalletNfts() {
+        await axios
+          .get("https://api.stilto.io/getwalletnfts", {
+            params: { address, chain: connectedChainId },
+          })
+          .then((response) => {
+            setWalletNfts(response.data.result);
+          });
+      }
+
+      getWalletNfts();
+      setIsLoggedIn(true);
     }
-  };
+  }, [isConnected, connectedChainId, address]);
+
+  // useEffect(() => {
+  //   checkIfWalletIsConnected();
+
+  //   async function getWalletNfts() {
+  //     await axios
+  //       .get("https://api.stilto.io/getwalletnfts", {
+  //         params: { address, chain: chain.id },
+  //       })
+  //       .then((response) => {
+  //         setWalletNfts(response.data.result);
+  //       });
+  //   }
+
+  //   if (isConnected) {
+  //     getWalletNfts();
+  //   }
+  // }, [isConnected, chain, address]);
+
+  // const checkIfWalletIsConnected = async () => {
+  //   const accounts = await window.ethereum.request({ method: "eth_accounts" });
+  //   if (accounts.length !== 0) {
+  //     const provider = new ethers.providers.Web3Provider(
+  //       window.ethereum,
+  //       "any"
+  //     );
+  //     const signer = await provider.getSigner();
+  //     const account = accounts[0];
+  //     setCurrentAccount(account);
+  //     setSigner(signer);
+  //   } else {
+  //     console.log("No authorized account found");
+  //   }
+  // };
 
   const createLink = async (tokenAddress, tokenId, nftImage) => {
     setLoadingLink(true);
@@ -236,11 +263,11 @@ export default function AddNft() {
             </Dropdown>
           </section>
         </section>
-        {chain && chain.id && chosenChain.id !== chain.id && (
+        {chosenChain.id !== connectedChainId && (
           <section className="flex justify-center items-center mt-4 md:px-10">
             <Button
               className=" bg-red-500 py-4 px-8 text-[#e0f7fa] font-semibold rounded-full"
-              onClick={() => open({ view: "Networks" })}
+              onClick={() => switchChain({ chainId: chosenChain.id })}
             >
               Wrong network. Change to: {chosenChain.chain}
             </Button>
