@@ -25,7 +25,7 @@ import Context from "../utils/context";
 export default function AddCryptoComp() {
   const { chosenGif, chosenCard, title, message } = useContext(Context);
 
-  const { isConnected } = useAccount();
+  const { address, isConnected } = useAccount();
   const [isLoggedIn, setIsLoggedIn] = useState("false");
 
   const connectedChainId = useChainId();
@@ -107,7 +107,7 @@ export default function AddCryptoComp() {
   const createClaimUrl = async (link, chain) => {
     await axios
       .post("https://api.stilto.io/createclaimurl", {
-        sender: currentAccount,
+        sender: address,
         gif: chosenGif,
         card: chosenCard,
         title,
