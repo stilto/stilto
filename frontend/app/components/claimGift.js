@@ -21,7 +21,7 @@ export default function ClaimButton() {
   const [isLoggedIn, setIsLoggedIn] = useState("false");
 
   const connectedChainId = useChainId();
-  const { chains } = useSwitchChain();
+  const { switchChain } = useSwitchChain();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [signer, setSigner] = useState(null);
@@ -140,12 +140,12 @@ export default function ClaimButton() {
             </section>
           )}
           {isLoggedIn && (
-            <section>
+            <section className="flex flex-col items-center">
               {giftChainId !== connectedChainId && (
                 <section>
                   <Button
                     className=" bg-red-500 mb-4 py-4 px-8 text-[#e0f7fa] font-semibold rounded-full"
-                    onClick={() => open({ view: "Networks" })}
+                    onClick={() => switchChain({ chainId: giftChainId })}
                   >
                     Wrong network. Change to: {giftChain}
                   </Button>
