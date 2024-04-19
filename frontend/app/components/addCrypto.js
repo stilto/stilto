@@ -31,7 +31,6 @@ export default function AddCryptoComp() {
   const connectedChainId = useChainId();
   const { chains } = useSwitchChain();
 
-  const [currentAccount, setCurrentAccount] = useState("");
   const [signer, setSigner] = useState(null);
   const { name: connectedChainName } = chains.find(
     ({ id }) => id === connectedChainId
@@ -74,8 +73,6 @@ export default function AddCryptoComp() {
           "any"
         );
         const signer = provider.getSigner();
-        const account = accounts[0];
-        setCurrentAccount(account);
         setSigner(signer);
       }
     };
