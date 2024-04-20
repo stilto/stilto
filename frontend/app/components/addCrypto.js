@@ -29,12 +29,17 @@ export default function AddCryptoComp() {
   const [isLoggedIn, setIsLoggedIn] = useState("false");
 
   const connectedChainId = useChainId();
-  const { chains } = useSwitchChain();
+  const { chains, switchChain } = useSwitchChain();
 
   const [signer, setSigner] = useState(null);
   const { name: connectedChainName } = chains.find(
     ({ id }) => id === connectedChainId
   ) || { name: "Unknown Network" };
+  const {
+    nativeCurrency: { symbol: connectedChainSymbol },
+  } = chains.find(({ id }) => id === connectedChainId) || {
+    symbol: "Unknown Symbol",
+  };
   const [chosenChain, setChosenChain] = useState({
     id: connectedChainId,
     chain: connectedChainName,
@@ -112,6 +117,7 @@ export default function AddCryptoComp() {
         amount,
         chain,
         chainId: chosenChain.id.toString(),
+        //chainSymbol: connectedChainSymbol,
         claimLink: link,
       })
       .then((response) => {
@@ -172,7 +178,6 @@ export default function AddCryptoComp() {
                         <polyline points="6 9 12 15 18 9" />
                       </svg>
                     </button>
-                    {/* <Button variant="bordered">Open Menu</Button> */}
                   </DropdownTrigger>
                   <DropdownMenu
                     aria-label="Static Actions"
@@ -183,7 +188,10 @@ export default function AddCryptoComp() {
                       <DropdownItem
                         key={item.key}
                         onClick={() =>
-                          setChosenChain({ id: item.key, chain: item.label })
+                          setChosenChain({
+                            id: item.key,
+                            chain: item.label,
+                          })
                         }
                         className="hover:bg-[#00bfa5]"
                       >
@@ -198,7 +206,7 @@ export default function AddCryptoComp() {
               <section className="flex justify-center items-center mt-4 md:px-10">
                 <Button
                   className=" bg-red-500 py-4 px-8 text-[#e0f7fa] font-semibold rounded-full"
-                  onClick={() => open({ view: "Networks" })}
+                  onClick={() => switchChain({ chainId: chosenChain.id })}
                 >
                   Wrong network. Change to: {chosenChain.chain}
                 </Button>
@@ -206,7 +214,7 @@ export default function AddCryptoComp() {
             )}
             <section className="flex justify-between md:justify-between items-center mt-8 mb-4 md:px-10">
               <label htmlFor="amount" className="text-lg">
-                ETH amount to gift:
+                {connectedChainSymbol} amount to gift:
               </label>
               <section className="flex items-center">
                 <input
@@ -294,7 +302,9 @@ export default function AddCryptoComp() {
               </h1>
             )}
             {message && <p className="w-full text-center mt-2">{message}</p>}
-            <p className="w-full text-center mt-2">Gift amount: {amount} ETH</p>
+            <p className="w-full text-center mt-2">
+              Gift amount: {amount} {connectedChainSymbol}
+            </p>
           </section>
         </section>
       )}
