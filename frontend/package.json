@@ -11,9 +11,9 @@
   "dependencies": {
     "@nextui-org/react": "^2.3.5",
     "@rainbow-me/rainbowkit": "^2.0.5",
-    "@squirrel-labs/peanut-sdk": "^0.4.25",
-    "@tanstack/react-query": "^5.29.2",
-    "@web3modal/wagmi": "^4.1.10",
+    "@squirrel-labs/peanut-sdk": "^0.4.31",
+    "@tanstack/react-query": "^5.31.0",
+    "@web3modal/wagmi": "^4.1.11",
     "autoprefixer": "10.4.19",
     "axios": "^1.6.2",
     "eslint": "8.56.0",
