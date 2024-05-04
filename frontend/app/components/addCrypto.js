@@ -241,7 +241,7 @@ export default function AddCryptoComp() {
               )
             ) : (
               <section className="text-center break-all mt-4 mx-4">
-                <p className="flex flex-row justify-center">
+                <section className="flex flex-row justify-center">
                   Share this claimable link:{" "}
                   <Popover placement="right" size="sm" className="rounded-lg">
                     <PopoverTrigger>
@@ -273,7 +273,7 @@ export default function AddCryptoComp() {
                       </section>
                     </PopoverContent>
                   </Popover>
-                </p>
+                </section>
                 {`https://stilto.io/card/claim?id=${giftId}`}
               </section>
             )}
