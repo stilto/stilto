@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.3.6",
-    "@rainbow-me/rainbowkit": "^2.0.6",
+    "@rainbow-me/rainbowkit": "^2.0.7",
     "@squirrel-labs/peanut-sdk": "^0.4.34",
     "@tanstack/react-query": "^5.35.1",
     "@web3modal/wagmi": "^4.1.11",
@@ -19,7 +19,7 @@
     "eslint": "8.56.0",
     "eslint-config-next": "14.0.4",
     "ethers": "^5.7",
-    "framer-motion": "^11.1.8",
+    "framer-motion": "^11.1.9",
     "next": "14.2.3",
     "postcss": "8.4.38",
     "react": "18.3.1",
