@@ -245,7 +245,7 @@ export default function AddCryptoComp() {
                   Share this claimable link:{" "}
                   <Popover placement="right" size="sm" className="rounded-lg">
                     <PopoverTrigger>
-                      <section className="w-8 h-8 flex justify-center bg-white">
+                      <section className="w-8 h-8 flex justify-center">
                         <svg
                           className="h-6 w-6 text-[#004d40] cursor-pointer"
                           width="16"
