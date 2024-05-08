@@ -109,7 +109,7 @@ export default function AddNft() {
       },
     });
 
-    createClaimUrl(createLinkResponse.link[0], network.name, nftImage);
+    createClaimUrl(createLinkResponse.link[0], connectedChainName, nftImage);
   };
 
   const createClaimUrl = async (link, chain, nftImage) => {
@@ -148,15 +148,15 @@ export default function AddNft() {
           )
         ) : (
           <section className="text-center break-all mt-4 mx-4">
-            <p className="flex flex-row justify-center">
+            <section className="flex flex-row justify-center">
               Share this claimable link:{" "}
-              <Popover placement="right" className="bg-[#1de9b6] rounded-lg">
+              <Popover placement="right" size="sm" className="rounded-lg">
                 <PopoverTrigger>
-                  <Button>
+                  <section className="w-8 h-8 flex justify-center">
                     <svg
                       className="h-6 w-6 text-[#004d40] cursor-pointer"
-                      width="24"
-                      height="24"
+                      width="16"
+                      height="16"
                       viewBox="0 0 24 24"
                       strokeWidth="2"
                       stroke="currentColor"
@@ -170,7 +170,7 @@ export default function AddNft() {
                       <rect x="8" y="8" width="12" height="12" rx="2" />{" "}
                       <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" />
                     </svg>{" "}
-                  </Button>
+                  </section>
                 </PopoverTrigger>
                 <PopoverContent>
                   <section className="px-1 py-2">
@@ -180,7 +180,7 @@ export default function AddNft() {
                   </section>
                 </PopoverContent>
               </Popover>
-            </p>
+            </section>
             {`https://stilto.io/card/claim?id=${giftId}`}
           </section>
         )}
