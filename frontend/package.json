@@ -9,20 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@nextui-org/react": "^2.2.9",
-    "@squirrel-labs/peanut-sdk": "^0.3.34",
-    "@web3modal/wagmi": "^3.5.0",
-    "autoprefixer": "10.4.16",
+    "@nextui-org/react": "^2.3.6",
+    "@rainbow-me/rainbowkit": "^2.0.7",
+    "@squirrel-labs/peanut-sdk": "^0.4.34",
+    "@tanstack/react-query": "^5.35.1",
+    "@web3modal/wagmi": "^4.1.11",
+    "autoprefixer": "10.4.19",
     "axios": "^1.6.2",
     "eslint": "8.56.0",
     "eslint-config-next": "14.0.4",
-    "ethers": "^5.7.2",
-    "framer-motion": "^10.16.16",
-    "next": "14.0.4",
-    "postcss": "8.4.32",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "tailwindcss": "3.4.0",
-    "wagmi": "^1.4.12"
+    "ethers": "^5.7",
+    "framer-motion": "^11.1.9",
+    "next": "14.2.3",
+    "postcss": "8.4.38",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "tailwindcss": "3.4.3",
+    "wagmi": "^2.8.1"
   }
 }
