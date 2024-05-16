@@ -12,19 +12,19 @@
     "@nextui-org/react": "^2.3.6",
     "@rainbow-me/rainbowkit": "^2.0.7",
     "@squirrel-labs/peanut-sdk": "^0.4.36",
-    "@tanstack/react-query": "^5.36.0",
-    "@web3modal/wagmi": "^4.1.11",
+    "@tanstack/react-query": "^5.36.2",
+    "@web3modal/wagmi": "^4.2.1",
     "autoprefixer": "10.4.19",
     "axios": "^1.6.2",
     "eslint": "8.56.0",
     "eslint-config-next": "14.0.4",
     "ethers": "^5.7",
-    "framer-motion": "^11.2.0",
+    "framer-motion": "^11.2.2",
     "next": "14.2.3",
     "postcss": "8.4.38",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "tailwindcss": "3.4.3",
-    "wagmi": "^2.8.7"
+    "wagmi": "^2.8.8"
   }
 }
