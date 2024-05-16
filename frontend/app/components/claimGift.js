@@ -14,6 +14,9 @@ import {
   ModalHeader,
   ModalBody,
   useDisclosure,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
 } from "@nextui-org/react";
 
 export default function ClaimButton() {
@@ -37,6 +40,7 @@ export default function ClaimButton() {
   const [giftAmount, setGiftAmount] = useState("");
   const [giftChain, setGiftChain] = useState("");
   const [giftChainId, setGiftChainId] = useState(0);
+  const [txnHash, setTxnHash] = useState("");
 
   useEffect(() => {
     const queryString = window.location.search;
@@ -107,6 +111,7 @@ export default function ClaimButton() {
       },
       link: link,
     });
+    setTxnHash(claimTx);
     linkDetails(link);
     setGiftClaimed();
     onOpen();
@@ -115,6 +120,10 @@ export default function ClaimButton() {
   const linkDetails = async (link) => {
     const details = await peanut.getLinkDetails({ link });
     setLinkStatus(details.claimed);
+  };
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(txnHash.txHash);
   };
 
   return (
@@ -178,7 +187,59 @@ export default function ClaimButton() {
                   {(onClose) => (
                     <section className="flex flex-col py-20">
                       <ModalHeader className="flex justify-center mb-8">
-                        <h2 className="text-xl">Congratulations!</h2>
+                        <section>
+                          <h2 className="text-xl">
+                            Congratulations! You have successfully claimed your
+                            gift!
+                          </h2>
+                          <section className="flex mt-4">
+                            Transaction Hash: {txnHash.txHash.slice(0, 8)}...
+                            {txnHash.txHash.slice(62)}
+                            <Popover
+                              placement="right"
+                              size="sm"
+                              className="rounded-lg"
+                            >
+                              <PopoverTrigger>
+                                <section className="w-8 h-8 flex justify-center">
+                                  <svg
+                                    className="h-6 w-6 text-[#004d40] cursor-pointer"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth="2"
+                                    stroke="currentColor"
+                                    fill="none"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    onClick={copyLink}
+                                  >
+                                    {" "}
+                                    <path
+                                      stroke="none"
+                                      d="M0 0h24v24H0z"
+                                    />{" "}
+                                    <rect
+                                      x="8"
+                                      y="8"
+                                      width="12"
+                                      height="12"
+                                      rx="2"
+                                    />{" "}
+                                    <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" />
+                                  </svg>{" "}
+                                </section>
+                              </PopoverTrigger>
+                              <PopoverContent>
+                                <section className="px-1 py-2">
+                                  <section className="text-[#004d40] text-small font-bold">
+                                    Copied!
+                                  </section>
+                                </section>
+                              </PopoverContent>
+                            </Popover>
+                          </section>
+                        </section>
                       </ModalHeader>
                       <ModalBody className="flex items-center">
                         <video
