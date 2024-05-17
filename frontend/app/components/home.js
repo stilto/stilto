@@ -89,7 +89,14 @@ export default function HomeComp() {
             </p>
           </section>
           <section className="w-full lg:w-1/2 flex justify-center mt-8 lg:mt-0">
-            <video autoPlay muted loop className="w-full h-96 rounded-lg">
+            <video
+              autoPlay
+              muted
+              loop
+              controls
+              controlsList="nofullscreen"
+              className="w-full h-96 rounded-lg"
+            >
               <source src="/giphy.mp4" type="video/mp4" />
             </video>
           </section>
