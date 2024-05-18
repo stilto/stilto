@@ -65,6 +65,7 @@ export default function SearchGifs() {
                     autoPlay
                     muted
                     loop
+                    playsInline
                     key={key}
                     className="w-48 lg:w-60 h-48 lg:h-60 mt-6 rounded-lg"
                   >
