@@ -93,8 +93,7 @@ export default function HomeComp() {
               autoPlay
               muted
               loop
-              controls
-              controlsList="nofullscreen"
+              playsInline
               className="w-full h-96 rounded-lg"
             >
               <source src="/giphy.mp4" type="video/mp4" />
