@@ -280,7 +280,13 @@ export default function AddCryptoComp() {
           </section>
           <section className="w-full lg:w-2/5 h-3/4 flex flex-col justify-center items-center mt-10 lg:mt-0 p-2 rounded-lg shadow-lg bg-white">
             {chosenGif !== "" ? (
-              <video autoPlay muted loop className="w-96 h-96 rounded-lg">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-96 h-96 rounded-lg"
+              >
                 <source src={chosenGif} type="video/mp4" />
               </video>
             ) : (

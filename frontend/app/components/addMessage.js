@@ -82,6 +82,7 @@ export default function AddMessageComp() {
               autoPlay
               muted
               loop
+              playsInline
               className="w-96 h-full lg:mt-10 rounded-lg shadow-lg"
             >
               <source src={chosenGif} type="video/mp4" />
