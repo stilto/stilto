@@ -246,6 +246,7 @@ export default function ClaimButton() {
                           autoPlay
                           muted
                           loop
+                          playsInline
                           className="rounded-lg shadow-lg"
                         >
                           <source
@@ -263,7 +264,13 @@ export default function ClaimButton() {
         </section>
         <section className="w-full lg:w-2/3 h-full flex justify-center items-center mt-6">
           {giftCardOrGif && (
-            <video autoPlay muted loop className="w-full rounded-lg shadow-lg">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full rounded-lg shadow-lg"
+            >
               <source src={giftCardOrGif} type="video/mp4" />
             </video>
           )}
