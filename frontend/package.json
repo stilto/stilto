@@ -13,7 +13,7 @@
     "@nextui-org/react": "^2.4.6",
     "@rainbow-me/rainbowkit": "^2.1.5",
     "@squirrel-labs/peanut-sdk": "^0.5.63",
-    "@tanstack/react-query": "^5.55.0",
+    "@tanstack/react-query": "^5.55.4",
     "@web3modal/wagmi": "^5.1.6",
     "autoprefixer": "10.4.20",
     "axios": "^1.7.7",
