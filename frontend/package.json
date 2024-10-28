@@ -11,21 +11,21 @@
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@nextui-org/react": "^2.4.8",
-    "@rainbow-me/rainbowkit": "^2.1.7",
-    "@squirrel-labs/peanut-sdk": "^0.5.4",
-    "@tanstack/react-query": "^5.59.13",
+    "@rainbow-me/rainbowkit": "^2.2.0",
+    "@squirrel-labs/peanut-sdk": "^0.5.6",
+    "@tanstack/react-query": "^5.59.16",
     "@web3modal/wagmi": "^5.1.11",
     "autoprefixer": "10.4.20",
     "axios": "^1.7.7",
     "eslint": "8.56.0",
     "eslint-config-next": "14.0.4",
     "ethers": "^5.7",
-    "framer-motion": "^11.11.8",
-    "next": "14.2.15",
+    "framer-motion": "^11.11.10",
+    "next": "15.0.1",
     "postcss": "8.4.47",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "tailwindcss": "3.4.13",
-    "wagmi": "^2.12.17"
+    "tailwindcss": "3.4.14",
+    "wagmi": "^2.12.25"
   }
 }
