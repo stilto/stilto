@@ -12,20 +12,20 @@
     "@emailjs/browser": "^4.4.1",
     "@nextui-org/react": "^2.4.8",
     "@rainbow-me/rainbowkit": "^2.2.0",
-    "@squirrel-labs/peanut-sdk": "^0.5.9",
-    "@tanstack/react-query": "^5.60.5",
+    "@squirrel-labs/peanut-sdk": "^0.5.11",
+    "@tanstack/react-query": "^5.61.5",
     "@web3modal/wagmi": "^5.1.11",
     "autoprefixer": "10.4.20",
-    "axios": "^1.7.7",
+    "axios": "^1.7.8",
     "eslint": "8.56.0",
     "eslint-config-next": "14.0.4",
     "ethers": "^5.7",
-    "framer-motion": "^11.11.17",
+    "framer-motion": "^11.12.0",
     "next": "15.0.3",
     "postcss": "8.4.49",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "tailwindcss": "3.4.15",
-    "wagmi": "^2.12.33"
+    "wagmi": "^2.13.2"
   }
 }
